@@ -63,7 +63,7 @@ public class Door extends StaticEntity {
 
     private void checkForPlayer(Graphics g, Player p) {
         Rectangle pr = p.getCollisionBounds(0,0);
-        System.out.println(p.getX());
+
         if(ir.contains(pr) && !EP){
             g.drawImage(Images.E,(int) x+width,(int) y+10,32,32,null);
         }

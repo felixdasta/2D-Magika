@@ -118,7 +118,10 @@ public class Player extends CreatureBase {
 
             fireAttack();
 
-
+        }
+        // Adds health
+        if(handler.getKeyManager().addhealth && (health < 75)){
+        	health += 1;
         }
 
         //Inventory

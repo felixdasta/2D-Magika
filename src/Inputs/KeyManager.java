@@ -8,10 +8,10 @@ public class KeyManager implements KeyListener {
 	private boolean[] keys,justPressed,cantPress;
 	public boolean up=false, down=false, left=false, right=false;
 	public boolean skipworld=false;
+	public boolean addhealth=false;
 	public boolean attbut=false;
 	public boolean fattbut=false;
 	public boolean pbutt=false;
-
 
 	public KeyManager(){
 
@@ -45,6 +45,7 @@ public class KeyManager implements KeyListener {
 		pbutt = keys[KeyEvent.VK_ESCAPE];
 		
 		skipworld = keys[KeyEvent.VK_TAB];
+		addhealth = keys[KeyEvent.VK_SHIFT];
 
 	}
 
