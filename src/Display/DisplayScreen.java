@@ -32,6 +32,7 @@ public class DisplayScreen {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.setBackground(Color.black);
+		frame.setFocusTraversalKeysEnabled(false);
 
 		iconURL = getClass().getResource("/Sheets/icon.png");
 		ImageIcon icon = new ImageIcon(iconURL);

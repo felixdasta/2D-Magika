@@ -63,17 +63,23 @@ public class Door extends StaticEntity {
 
     private void checkForPlayer(Graphics g, Player p) {
         Rectangle pr = p.getCollisionBounds(0,0);
-
+        System.out.println(p.getX());
         if(ir.contains(pr) && !EP){
             g.drawImage(Images.E,(int) x+width,(int) y+10,32,32,null);
-        }else if(ir.contains(pr) && EP){
+        }
+        
+      //tab key can be used to skip the world, whenever the player is not "right in front" of the door
+        else if((ir.contains(pr) && EP) || handler.getKeyManager().skipworld){
+        	if(!((p.getX() > 84 && p.getX() < 152) && p.getY() < 65)){
+        		p.setX(100);
+        		p.setY(45);
+        	}
+        	
             g.drawImage(Images.EP,(int) x+width,(int) y+10,32,32,null);
             g.drawImage(Images.loading,0,0,800,600,null);
             handler.setWorld(world);
 
         }
-
-
     }
 
     @Override

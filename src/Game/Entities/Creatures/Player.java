@@ -121,7 +121,6 @@ public class Player extends CreatureBase {
 
         }
 
-
         //Inventory
         inventory.tick();
 
@@ -251,7 +250,7 @@ public class Player extends CreatureBase {
         if(handler.getKeyManager().up &&! attacking)
             yMove = -speed;
         if(handler.getKeyManager().down&&! attacking)
-            yMove = speed;
+            yMove = speed;				
         if(handler.getKeyManager().left&&! attacking)
             xMove = -speed;
         if(handler.getKeyManager().right&&! attacking)
