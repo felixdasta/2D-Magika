@@ -38,6 +38,8 @@ public class Player extends CreatureBase {
     private Boolean LaunchedFireBallU=false;
     private Boolean LaunchedFireBallD=false;
     private Boolean attacking=false;
+    private Boolean addedItem = false;
+    private Boolean touchedHeart = false;
 
     private int animWalkingSpeed = 150;
     private int animFireSpeed = 250;
@@ -120,11 +122,17 @@ public class Player extends CreatureBase {
 
         }
         // Adds health
-        if(handler.getKeyManager().addhealth && (health < 75)){
-        	health += 1;
-        }
+        addHealth();
 
         //Inventory
+        if(handler.getKeyManager().additem){
+        	if (!addedItem){
+            	handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(Item.fireRuneItem);
+            	handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(Item.rockItem);
+            	handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(Item.woodItem);
+            	addedItem = true;
+        	}
+        }
         inventory.tick();
 
         //spellgui
@@ -193,6 +201,23 @@ public class Player extends CreatureBase {
                 return;
 
             }
+        }
+    }
+
+    
+    public void addHealth() { 
+        if(handler.getKeyManager().addhealth && (health < 75)){
+        	health += 1;
+        }
+        if(!touchedHeart){
+            handler.getWorld().getItemManager().addItem(Item.heart.createNew(1000, 1000, fcounter));
+        	if((this.getX() > 955 && this.getX() < 1012) && (this.getY() > 955 && this.getY() < 1012)){
+        		health+=15;
+        		if(health > 75){
+        			health = 75;
+        		}
+        		touchedHeart = true;
+        	}
         }
     }
 

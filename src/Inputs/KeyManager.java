@@ -12,6 +12,7 @@ public class KeyManager implements KeyListener {
 	public boolean attbut=false;
 	public boolean fattbut=false;
 	public boolean pbutt=false;
+	public boolean additem = false;
 
 	public KeyManager(){
 
@@ -46,6 +47,7 @@ public class KeyManager implements KeyListener {
 		
 		skipworld = keys[KeyEvent.VK_TAB];
 		addhealth = keys[KeyEvent.VK_SHIFT];
+		additem = keys[KeyEvent.VK_X];
 
 	}
 

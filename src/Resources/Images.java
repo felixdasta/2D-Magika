@@ -34,6 +34,7 @@ public class Images {
     public static BufferedImage E;
     public static BufferedImage EP;
     public static BufferedImage Pause;
+    public static BufferedImage heart;
     public static BufferedImage[] Resume;
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
@@ -96,6 +97,7 @@ public class Images {
             inventory = ImageIO.read(getClass().getResourceAsStream("/Sheets/guit.png"));
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
             door = ImageIO.read(getClass().getResourceAsStream("/Sheets/Door.png"));
+            heart = ImageIO.read(getClass().getResourceAsStream("/Sheets/heart.png"));
             E = ImageIO.read(getClass().getResourceAsStream("/Buttons/E.png"));
             EP = ImageIO.read(getClass().getResourceAsStream("/Buttons/EP.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
