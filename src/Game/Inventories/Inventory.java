@@ -18,6 +18,7 @@ public class Inventory {
 
     private Handler handler;
     private boolean active = false;
+    private boolean toAdd = true;
     private UIManager uiManager;
     private ArrayList<Item> inventoryItems;
 
@@ -59,13 +60,10 @@ public class Inventory {
     }
 
     public void render(Graphics g) {
-
         if(!active){
             uiManager.isActive(uiManager.getObjects(),false);
             return;
         }
-
-
 
         uiManager.isActive(uiManager.getObjects(),true);
         uiManager.Render(g);
@@ -77,39 +75,50 @@ public class Inventory {
 
     //Inventory Methods
     private void renderItems(Graphics g) {
-
-        if (inventoryItems.size() == 1) {
-            g.drawImage(inventoryItems.get(0).getTexture(), 25, 24, inventoryItems.get(0).getWidth(), inventoryItems.get(0).getHeight(), null);
-            g.drawString(String.valueOf(inventoryItems.get(0).getCount()), 25+33,25+35);
-        }else if(inventoryItems.size() == 2) {
-            g.drawImage(inventoryItems.get(0).getTexture(), 25, 24, inventoryItems.get(0).getWidth(), inventoryItems.get(0).getHeight(), null);
-            g.drawString(String.valueOf(inventoryItems.get(0).getCount()), 25+33,25+35);
-            g.drawImage(inventoryItems.get(1).getTexture(), 86, 24, inventoryItems.get(1).getWidth(), inventoryItems.get(1).getHeight(), null);
-            g.drawString(String.valueOf(inventoryItems.get(1).getCount()), 86+33,24+35);
-        }else if(inventoryItems.size() == 3) {
-            g.drawImage(inventoryItems.get(0).getTexture(), 25, 24, inventoryItems.get(0).getWidth(), inventoryItems.get(0).getHeight(), null);
-            g.drawString(String.valueOf(inventoryItems.get(0).getCount()), 25+33,25+35);
-            g.drawImage(inventoryItems.get(1).getTexture(), 86, 24, inventoryItems.get(1).getWidth(), inventoryItems.get(1).getHeight(), null);
-            g.drawString(String.valueOf(inventoryItems.get(1).getCount()), 86+33,24+35);
-            g.drawImage(inventoryItems.get(2).getTexture(), 147, 24, inventoryItems.get(2).getWidth(), inventoryItems.get(2).getHeight(), null);
-            g.drawString(String.valueOf(inventoryItems.get(2).getCount()), 147+33,24+35);
-        }
-
-
+    	int inventoryItemXpos = 25;
+    	int inventoryItemYpos = 24;
+    	for(int i = 0; i < inventoryItems.size(); i++){
+    		g.drawImage(inventoryItems.get(i).getTexture(), inventoryItemXpos, inventoryItemYpos, inventoryItems.get(i).getWidth(), inventoryItems.get(i).getHeight(), null);
+    		g.drawString(String.valueOf(inventoryItems.get(i).getCount()), inventoryItemXpos+33, inventoryItemYpos);
+    		if(i==4 || i == 9){
+    			inventoryItemYpos +=60;
+        		inventoryItemXpos = 25;
+    		}else{
+        		inventoryItemXpos+=61;  			
+    		}		
+    	}
     }
 
     public void addItem(Item item){
-        for(Item i : inventoryItems){
-            if(i.getId() == item.getId()){
-                i.setCount(i.getCount()+item.getCount());
-                return;
-            }
-        }
-        if(item.getId()==2){
-            handler.getWorld().getEntityManager().getPlayer().getSpellGUI().addSpell(new FireBallSpell(handler));
-        }
-        inventoryItems.add(item);
+    	for(Item i : inventoryItems){
+    		if(i.getId() == item.getId()){
+    			i.setCount(i.getCount() + 1);
+    			return;
+    		}
+    	}
+    	if(item.getId()==2){
+    		handler.getWorld().getEntityManager().getPlayer().getSpellGUI().addSpell(new FireBallSpell(handler));
+    	}
+    	if(item.getId()==3){
 
+    		handler.getGame().playAudio("res/music/Powerup.wav", false);
+
+    		if(handler.getWorld().getEntityManager().getPlayer().getHealth() == 75){
+    			toAdd = true;
+    		}
+    		else if(handler.getWorld().getEntityManager().getPlayer().getHealth() > 60){
+    			handler.getWorld().getEntityManager().getPlayer().setHealth(75);
+    			toAdd = false;
+    		}else{
+    			handler.getWorld().getEntityManager().getPlayer().setHealth(handler.getWorld().getEntityManager().getPlayer().getHealth() + 15);
+    			toAdd = false;
+    		}
+    	}
+    	//toAdd verifies that if the item was consumed, it will not be added to the inventory. Otherwise, it will be added.
+    	if(toAdd){
+    		inventoryItems.add(item);
+    	}
+    	toAdd=true;
     }
 
     //GET SET

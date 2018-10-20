@@ -3,6 +3,7 @@ package Resources;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -34,10 +35,17 @@ public class Images {
     public static BufferedImage E;
     public static BufferedImage EP;
     public static BufferedImage Pause;
+    public static BufferedImage OptionsMenu;
     public static BufferedImage heart;
+    public static BufferedImage coin;
+    public static BufferedImage key;
     public static BufferedImage[] Resume;
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
+    public static BufferedImage[] MuteMusic;
+    public static BufferedImage[] MuteSoundEffects;
+    public static BufferedImage[] UnmuteMusic;
+    public static BufferedImage[] UnmuteSoundEffects;
     public static BufferedImage[] Runes;
     public static ImageIcon icon;
     public static BufferedImage[] FireBallLeft;
@@ -58,9 +66,7 @@ public class Images {
         SpriteSheet FireBallUpsheet = new SpriteSheet(Images.loadImage("/Sheets/FireBallUp.png"));
         SpriteSheet FireBallDownsheet = new SpriteSheet(Images.loadImage("/Sheets/FireBallDown.png"));
 
-
-
-        blocks = new BufferedImage[15];
+        blocks = new BufferedImage[16];
 
         player_left = new BufferedImage[4];
         player_right = new BufferedImage[4];
@@ -80,6 +86,10 @@ public class Images {
         BTitle = new BufferedImage[2];
         Options = new BufferedImage[2];
         Runes = new BufferedImage[36];
+        MuteMusic = new BufferedImage[2];
+        MuteSoundEffects = new BufferedImage[2];
+        UnmuteMusic = new BufferedImage[2];
+        UnmuteSoundEffects = new BufferedImage[2];
 
         FireBallLeft = new BufferedImage[6];
         FireBallRight = new BufferedImage[6];
@@ -97,16 +107,24 @@ public class Images {
             inventory = ImageIO.read(getClass().getResourceAsStream("/Sheets/guit.png"));
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
             door = ImageIO.read(getClass().getResourceAsStream("/Sheets/Door.png"));
-            heart = ImageIO.read(getClass().getResourceAsStream("/Sheets/heart.png"));
             E = ImageIO.read(getClass().getResourceAsStream("/Buttons/E.png"));
             EP = ImageIO.read(getClass().getResourceAsStream("/Buttons/EP.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
+            OptionsMenu = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsMenu.png"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Resume.png"));
             Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeP.png"));
             BTitle[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitle.png"));
             BTitle[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitleP.png"));
             Options[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Options.png"));
             Options[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsP.png"));
+            MuteMusic[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/MuteMusic.png"));
+            MuteMusic[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/MuteMusicP.png"));
+            MuteSoundEffects[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/MuteSoundEffects.png")); 
+            MuteSoundEffects[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/MuteSoundEffectsP.png")); 
+            UnmuteMusic[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/UnmuteMusic.png"));
+            UnmuteMusic[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/UnmuteMusicP.png"));
+            UnmuteSoundEffects[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/UnmuteSoundEffects.png")); 
+            UnmuteSoundEffects[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/UnmuteSoundEffectsP.png")); 
 
             //icon
             icon = new ImageIcon(runesheet.crop(Rwidth*1,Rheight*0,Rwidth,Rheight));
@@ -151,7 +169,15 @@ public class Images {
             Runes[5]= runesheet.crop(Rwidth*5,Rheight*0,Rwidth,Rheight);
             Runes[6]= runesheet.crop(Rwidth*6,Rheight*0,Rwidth,Rheight);
             Runes[7]= runesheet.crop(Rwidth*7,Rheight*0,Rwidth,Rheight);
-
+            
+            //Coin
+            coin = newsheet.crop(152, 484, 36, 36);
+            
+            //Heart
+            heart = newsheet.crop(108, 483, 40, 36);
+            
+            //Key
+            key = newsheet.crop(255, 0, 30, 76);
 
             blocks[0] = ImageIO.read(getClass().getResourceAsStream("/Blocks/Slime.png"));
 
@@ -202,6 +228,7 @@ public class Images {
             blocks[12] = newsheet.crop(0,260,Bwidth,Bheight);//mossyrock
             blocks[13] = newsheet.crop(176,0,Bwidth,Bheight*2);//tree
             blocks[14] = newsheet.crop(174,410,78,74);//rock
+            blocks[15] = newsheet.crop(286, 0, Bwidth, Bheight); //brick
 
 
             //player anim

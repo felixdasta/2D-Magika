@@ -38,8 +38,6 @@ public class Player extends CreatureBase {
     private Boolean LaunchedFireBallU=false;
     private Boolean LaunchedFireBallD=false;
     private Boolean attacking=false;
-    private Boolean addedItem = false;
-    private Boolean touchedHeart = false;
 
     private int animWalkingSpeed = 150;
     private int animFireSpeed = 250;
@@ -87,8 +85,6 @@ public class Player extends CreatureBase {
         animFireATTU.tick();
         animFireATTD.tick();
 
-
-
         //Movement
         getInput();
         move();
@@ -125,13 +121,11 @@ public class Player extends CreatureBase {
         addHealth();
 
         //Inventory
-        if(handler.getKeyManager().additem){
-        	if (!addedItem){
-            	handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(Item.fireRuneItem);
-            	handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(Item.rockItem);
-            	handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(Item.woodItem);
-            	addedItem = true;
-        	}
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_X)){
+			for(int i=0; i<Item.items.length;i++){
+				if (Item.items[i]!=null && Item.items[i].getCount() < 64){ 
+					this.inventory.addItem(Item.items[i]);} 
+			} 
         }
         inventory.tick();
 
@@ -145,11 +139,7 @@ public class Player extends CreatureBase {
 
         if(FireBall){
             FireBallAttack(g);
-
         }
-
-
-
 
         g.setColor(Color.BLACK);
         g.drawRect((int)(x-handler.getGameCamera().getxOffset()-1),(int)(y-handler.getGameCamera().getyOffset()-21),76,11);
@@ -168,9 +158,6 @@ public class Player extends CreatureBase {
         }
         g.setColor(Color.white);
         g.drawString("Health: " + getHealth(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-10));
-
-
-
     }
 
     public void readyFireAttack(){
@@ -206,19 +193,13 @@ public class Player extends CreatureBase {
 
     
     public void addHealth() { 
-        if(handler.getKeyManager().addhealth && (health < 75)){
-        	health += 1;
-        }
-        if(!touchedHeart){
-            handler.getWorld().getItemManager().addItem(Item.heart.createNew(1000, 1000, fcounter));
-        	if((this.getX() > 955 && this.getX() < 1012) && (this.getY() > 955 && this.getY() < 1012)){
-        		health+=15;
-        		if(health > 75){
-        			health = 75;
-        		}
-        		touchedHeart = true;
-        	}
-        }
+    	if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SHIFT) && (health < 75)){
+    		if(health>70){
+    			health=75;
+    		}else{
+    			health += 5;
+    		}
+    	}
     }
 
     @SuppressWarnings("Duplicates")
@@ -339,7 +320,7 @@ public class Player extends CreatureBase {
                 FireBall=false;
                 attacking=false;
             }
-        } else if(LaunchedFireBallL) {   //ll
+        } else if(LaunchedFireBallL) {   
             movexn-=FireSpeed;
             g.drawImage(getCurrentFireAnimationFrame(), movexn, fy, 64, 32, null);
             if(movexn <= tempmovexn - 64*2){
@@ -368,7 +349,7 @@ public class Player extends CreatureBase {
 
             return animFireATTU.getCurrentFrame();
 
-        }else{   //ll
+        }else{
 
             return animFireATT.getCurrentFrame();
         }
@@ -384,7 +365,7 @@ public class Player extends CreatureBase {
         this.inventory = inventory;
     }
 
-    public SpellCastUI getSpellGUI() {
+	public SpellCastUI getSpellGUI() {
         return spellGUI;
     }
 }

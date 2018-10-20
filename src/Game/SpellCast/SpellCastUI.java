@@ -90,9 +90,6 @@ public class SpellCastUI {
         }
         spellList.add(spell);
     }
-
-
-
     //GET SET
     public Handler getHandler() {
         return handler;

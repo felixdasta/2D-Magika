@@ -1,10 +1,11 @@
 package Game.Items;
 
-import Resources.Images;
-import Main.Handler;
-
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+
+import Main.Handler;
+import Resources.Images;
 
 /**
  * Created by Elemental on 1/2/2017.
@@ -17,12 +18,9 @@ public class Item {
     protected BufferedImage texture;
     protected String name;
     protected final int id;
-
     protected int x,y,count;
     protected boolean pickedUp = false;
-
     protected Rectangle bounds;
-
     //handler
 
     public static Item[] items = new Item[256];
@@ -30,8 +28,9 @@ public class Item {
     public static Item woodItem = new Item(Images.items[0],"Wood",0);
     public static Item rockItem = new Item(Images.blocks[14],"Rock",1);
     public static Item fireRuneItem = new Item(Images.Runes[2],"Fire Rune",2);
-    public static Item heart = new Item(Images.heart, "Heart", 3);
-
+    public static Item heart = new Item(Images.heart, "Heart", 3, 36, 40);
+    public static Item coin = new Item(Images.coin, "Coin", 4);
+    public static Item key = new Item(Images.key, "Coin", 5);
 
     //class
 
@@ -45,6 +44,7 @@ public class Item {
 
         items[id]=this;
     }
+    
     public Item(BufferedImage texture, String name, int id,int height,int width){
         this.texture=texture;
         this.id=id;
@@ -58,7 +58,6 @@ public class Item {
         items[id]=this;
     }
 
-
     public void tick(){
         if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0f,0f).intersects(bounds)){
             pickedUp=true;
@@ -66,7 +65,7 @@ public class Item {
         }
     }
 
-    public void render(Graphics g){
+	public void render(Graphics g){
         if(handler == null){
             return;
         }
@@ -75,7 +74,6 @@ public class Item {
 
     public void render(Graphics g ,int x, int y){
         g.drawImage(texture,x,y,ITEMWEIGHT,ITEMWEIGHT,null);
-
     }
 
     public Item createNew(int x, int y,int count){

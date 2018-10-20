@@ -3,6 +3,7 @@ package Worlds;
 import Game.Entities.Creatures.Player;
 import Game.Entities.Creatures.SkelyEnemy;
 import Game.Entities.Statics.*;
+import Game.Items.Item;
 import Main.Handler;
 
 /**
@@ -28,6 +29,12 @@ public class World1 extends BaseWorld{
         entityManager.addEntity(new Rock(handler, 700, 83));
         entityManager.addEntity(new Door(handler, 100, 0,caveWorld));
         entityManager.addEntity(new SkelyEnemy(handler, 1250, 500));
+        entityManager.addEntity(new Brick(handler, 584, 1007));
+        entityManager.addEntity(new Brick(handler, 1015, 1254));
+        entityManager.addEntity(new Brick(handler, 1267, 618));
+        entityManager.addEntity(new Brick(handler, 532, 78));
+        entityManager.addEntity(new Brick(handler, 382, 1363));
+        getItemManager().addItem(Item.heart.createNew(457, 657, 1));
 
         entityManager.getPlayer().setX(spawnX);
         entityManager.getPlayer().setY(spawnY);

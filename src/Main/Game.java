@@ -3,6 +3,7 @@ package Main;
 import Game.GameStates.GameState;
 import Game.GameStates.MenuState;
 import Game.GameStates.PauseState;
+import Game.GameStates.OptionsState;
 import Game.GameStates.State;
 import Inputs.KeyManager;
 import Inputs.MouseManager;
@@ -16,6 +17,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -37,7 +39,7 @@ public class Game implements Runnable {
     public State gameState;
     public State menuState;
     public State pauseState;
-
+    public State optionsState;
 
     //Input
     private KeyManager keyManager;
@@ -54,7 +56,11 @@ public class Game implements Runnable {
     private AudioInputStream audioStream;
     private AudioFormat format;
     private DataLine.Info info;
+    private String audioName;
     private Clip audioClip;
+    private Clip audioPlayer; //to play sound effects other than the main audio
+    private boolean soundEffectMute;
+    private boolean backgroundMusicMute;
 
     private BufferedImage loading;
 
@@ -90,6 +96,7 @@ public class Game implements Runnable {
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
+        optionsState = new OptionsState(handler);
 
         State.setState(menuState);
 
@@ -101,6 +108,8 @@ public class Game implements Runnable {
             audioClip = (Clip) AudioSystem.getLine(info);
             audioClip.open(audioStream);
             audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+            
+            audioName = "res/music/nature.wav";
 
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
@@ -110,6 +119,69 @@ public class Game implements Runnable {
             e.printStackTrace();
         }
     }
+    public void stopAudio(){
+    	audioPlayer.stop();
+    }
+	public void stopMainAudio(){
+    	audioClip.stop();
+    }
+	public void playAudio(String fileLocation, boolean soundLoop){
+		try {
+			if(!soundEffectMute){
+				audioPlayer = AudioSystem.getClip();
+				audioPlayer.open(AudioSystem.getAudioInputStream(new File(fileLocation)));
+				if(!soundLoop){
+					audioPlayer.start();
+				}else{
+					audioPlayer.loop(Clip.LOOP_CONTINUOUSLY);
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+}
+	public void playMainAudioAs(String fileLocation){
+		try {
+			if(!backgroundMusicMute){
+			audioStream = AudioSystem.getAudioInputStream(new File(fileLocation));
+			audioClip = AudioSystem.getClip();
+			audioClip.open(audioStream);
+			audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+			audioName = fileLocation;
+			}
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void playMainAudio(){
+		audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+	}
+	
+    public void setSoundEffectMute(boolean soundEffectMute) {
+		this.soundEffectMute = soundEffectMute;
+	}
+    
+    public void setBackgroundMusicMute(boolean backgroundMusicMute) {
+		this.backgroundMusicMute = backgroundMusicMute;
+	}
 
     public void reStart(){
         gameState = new GameState(handler);
