@@ -92,6 +92,11 @@ public class Inventory {
     public void addItem(Item item){
     	for(Item i : inventoryItems){
     		if(i.getId() == item.getId()){
+    			addHealth(item);
+    			if(item.getId()==4 && !handler.getKeyManager().additem){
+    				handler.getGame().playAudio("res/music/Coin.wav", false);
+    			}			
+
     			i.setCount(i.getCount() + 1);
     			return;
     		}
@@ -99,10 +104,23 @@ public class Inventory {
     	if(item.getId()==2){
     		handler.getWorld().getEntityManager().getPlayer().getSpellGUI().addSpell(new FireBallSpell(handler));
     	}
-    	if(item.getId()==3){
+    	
+    	addHealth(item);
+    	
+		if(item.getId()==4 && !handler.getKeyManager().additem){
+			handler.getGame().playAudio("res/music/Coin.wav", false);
+		}		
 
-    		handler.getGame().playAudio("res/music/Powerup.wav", false);
-
+    	//toAdd verifies that if the item was consumed, it will not be added to the inventory. Otherwise, it will be added.
+    	if(toAdd){
+    		inventoryItems.add(item);
+    	}
+    	toAdd=true;
+    }
+    
+    private void addHealth(Item item){
+    	if(item.getId()==3 && !handler.getKeyManager().additem){
+			handler.getGame().playAudio("res/music/Powerup.wav", false);
     		if(handler.getWorld().getEntityManager().getPlayer().getHealth() == 75){
     			toAdd = true;
     		}
@@ -114,11 +132,6 @@ public class Inventory {
     			toAdd = false;
     		}
     	}
-    	//toAdd verifies that if the item was consumed, it will not be added to the inventory. Otherwise, it will be added.
-    	if(toAdd){
-    		inventoryItems.add(item);
-    	}
-    	toAdd=true;
     }
 
     //GET SET

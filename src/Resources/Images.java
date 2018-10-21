@@ -232,25 +232,25 @@ public class Images {
 
 
             //player anim
-            player_front[0]=newsheet.crop(132,131,width,height);
-            player_front[1]=newsheet.crop(164,131,width,height);
-            player_front[2]=newsheet.crop(196,131,width,height);
-            player_front[3]=newsheet.crop(228,131,28,height);
+            player_front[0]=newsheet.crop(255,121,51,69);
+            player_front[1]=newsheet.crop(308,119,51,72);
+            player_front[2]=newsheet.crop(362,121,51,70);
+            player_front[3]=newsheet.crop(415,121,51,70);
 
-            player_left[0]=newsheet.crop(132,163,width,height);
-            player_left[1]=newsheet.crop(164,163,width,height);
-            player_left[2]=newsheet.crop(196,163,width,height);
-            player_left[3]=newsheet.crop(228,163,28,height);
+            player_left[0]=newsheet.crop(257,191,49,69);
+            player_left[1]=newsheet.crop(308,191,49,69);
+            player_left[2]=newsheet.crop(359,191,50,68);
+            player_left[3]=newsheet.crop(412,191,49,69);
 
-            player_right[0]=newsheet.crop(132,195,width,height);
-            player_right[1]=newsheet.crop(164,195,width,height);
-            player_right[2]=newsheet.crop(196,195,width,height);
-            player_right[3]=newsheet.crop(228,195,28,height);
+            player_right[0]=newsheet.crop(262,331,49,69);
+            player_right[1]=newsheet.crop(314,331,49,69);
+            player_right[2]=newsheet.crop(366,331,49,69);
+            player_right[3]=newsheet.crop(417,331,49,69);
 
-            player_back[0]=newsheet.crop(132,227,width,height);
-            player_back[1]=newsheet.crop(164,227,width,height);
-            player_back[2]=newsheet.crop(196,227,width,height);
-            player_back[3]=newsheet.crop(228,227,28,height);
+            player_back[0]=newsheet.crop(259,262,49,68);
+            player_back[1]=newsheet.crop(310,260,49,71);
+            player_back[2]=newsheet.crop(362,261,49,69);
+            player_back[3]=newsheet.crop(416,260,49,70);
 
             //Skely enemy anim
             SkelyEnemy_front[0]=newsheet.crop(132,131+130,width,height);
