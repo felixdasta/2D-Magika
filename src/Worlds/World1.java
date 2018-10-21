@@ -1,6 +1,7 @@
 package Worlds;
 
 import Game.Entities.Creatures.Player;
+import Game.Entities.Creatures.RickPickle;
 import Game.Entities.Creatures.SkelyEnemy;
 import Game.Entities.Statics.*;
 import Game.Items.Item;
@@ -34,6 +35,7 @@ public class World1 extends BaseWorld{
         entityManager.addEntity(new Brick(handler, 1267, 618));
         entityManager.addEntity(new Brick(handler, 532, 78));
         entityManager.addEntity(new Brick(handler, 382, 1363));
+        entityManager.addEntity(new RickPickle(handler, 1000, 1000));
         getItemManager().addItem(Item.heart.createNew(457, 657, 1));
 
         entityManager.getPlayer().setX(spawnX);

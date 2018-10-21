@@ -54,6 +54,11 @@ public class Images {
     public static BufferedImage[] FireBallDown;
     public static BufferedImage loading;
     public static BufferedImage spellGUI;
+    public static BufferedImage[] PickleRick_front;
+    public static BufferedImage[] PickleRick_back;
+    public static BufferedImage[] PickleRick_left;
+    public static BufferedImage[] PickleRick_right;
+
 
 
     public Images() {
@@ -65,6 +70,7 @@ public class Images {
         SpriteSheet FireBallRightsheet = new SpriteSheet(Images.loadImage("/Sheets/FireBallRight.png"));
         SpriteSheet FireBallUpsheet = new SpriteSheet(Images.loadImage("/Sheets/FireBallUp.png"));
         SpriteSheet FireBallDownsheet = new SpriteSheet(Images.loadImage("/Sheets/FireBallDown.png"));
+        SpriteSheet PickleRicksheet = new SpriteSheet(Images.loadImage("/Sheets/PickleRick.png"));
 
         blocks = new BufferedImage[16];
 
@@ -96,7 +102,12 @@ public class Images {
         FireBallUp = new BufferedImage[6];
         FireBallDown = new BufferedImage[6];
 
+        PickleRick_front = new BufferedImage[4];
+        PickleRick_back = new BufferedImage[4];
+        PickleRick_right = new BufferedImage[4];
+        PickleRick_left = new BufferedImage[4];
 
+        
 
 
         try {
@@ -272,6 +283,29 @@ public class Images {
             SkelyEnemy_back[1]=newsheet.crop(164,227+130,width,height);
             SkelyEnemy_back[2]=newsheet.crop(196,227+130,width,height);
             SkelyEnemy_back[3]=newsheet.crop(228,227+130,28,height);
+            
+            // Pickle Rick 
+            PickleRick_front[0] = PickleRicksheet.crop(22, 42, 68, 117);
+            PickleRick_front[1] = PickleRicksheet.crop(154, 28, 64, 124);
+            PickleRick_front[2] = PickleRicksheet.crop(283, 31, 66, 124);
+            PickleRick_front[3] = PickleRicksheet.crop(413, 31, 66, 124);
+
+            PickleRick_back[0] = PickleRicksheet.crop(22, 376, 68, 117);
+            PickleRick_back[1] = PickleRicksheet.crop(155, 366, 62, 120);
+            PickleRick_back[2] = PickleRicksheet.crop(284, 368, 64, 121);
+            PickleRick_back[3] = PickleRicksheet.crop(414, 373, 65, 119);
+
+            PickleRick_left[0] = PickleRicksheet.crop(22, 542, 68, 118);
+            PickleRick_left[1] = PickleRicksheet.crop(152, 538, 68, 118);
+            PickleRick_left[2] = PickleRicksheet.crop(283, 535, 66, 118);
+            PickleRick_left[3] = PickleRicksheet.crop(411, 544, 70, 116);
+            
+            PickleRick_right[0] = PickleRicksheet.crop(22, 211, 70, 116);
+            PickleRick_right[1] = PickleRicksheet.crop(154, 202, 66, 118);
+            PickleRick_right[2] = PickleRicksheet.crop(283, 205, 68, 118);
+            PickleRick_right[3] = PickleRicksheet.crop(412, 209, 68, 118);
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
