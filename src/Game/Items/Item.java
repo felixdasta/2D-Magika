@@ -28,7 +28,7 @@ public class Item {
     public static Item woodItem = new Item(Images.items[0],"Wood",0);
     public static Item rockItem = new Item(Images.blocks[14],"Rock",1);
     public static Item fireRuneItem = new Item(Images.Runes[2],"Fire Rune",2);
-    public static Item heart = new Item(Images.heart, "Heart", 3, 36, 40);
+    public static Item heart = new Item(Images.heart, "Heart", 3);
     public static Item coin = new Item(Images.coin, "Coin", 4);
     public static Item key = new Item(Images.key, "Coin", 5);
 

@@ -7,6 +7,7 @@ import Game.Items.Item;
 import Game.SpellCast.SpellCastUI;
 import Resources.Animation;
 import Resources.Images;
+import Worlds.World1;
 import Main.Handler;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -38,6 +39,7 @@ public class Player extends CreatureBase {
     private Boolean LaunchedFireBallU=false;
     private Boolean LaunchedFireBallD=false;
     private Boolean attacking=false;
+    private Boolean healthBarVisibility = true;
 
     private int animWalkingSpeed = 150;
     private int animFireSpeed = 250;
@@ -97,7 +99,6 @@ public class Player extends CreatureBase {
             fcounter=0;
             fcactive=true;
             FireBall=true;
-
         }
 
         if(FireBall){
@@ -111,12 +112,15 @@ public class Player extends CreatureBase {
 
         // Attack
         if(handler.getKeyManager().attbut) {
+        	
             checkAttacks();
+            
         }else if(handler.getKeyManager().fattbut){
 
             fireAttack();
 
         }
+        
         // Adds health
         addHealth();
 
@@ -141,23 +145,39 @@ public class Player extends CreatureBase {
             FireBallAttack(g);
         }
 
-        g.setColor(Color.BLACK);
-        g.drawRect((int)(x-handler.getGameCamera().getxOffset()-1),(int)(y-handler.getGameCamera().getyOffset()-21),76,11);
-        if(this.getHealth()>50){
-            g.setColor(Color.GREEN);
-            g.fillRect((int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-20),getHealth(),10);
+        if(healthBarVisibility){
+            g.setColor(Color.BLACK);
+            g.drawRect((int)(x-handler.getGameCamera().getxOffset()-1),(int)(y-handler.getGameCamera().getyOffset()-21),76,11);
+            if(this.getHealth()>50){
+                g.setColor(Color.GREEN);
+                g.fillRect((int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-20),getHealth(),10);
+                normalPlayer();
 
-        }else if(this.getHealth()>=15 && getHealth()<=50){
-            g.setColor(Color.YELLOW);
-            g.fillRect((int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-20),getHealth(),10);
+            }else if(this.getHealth()>=15 && getHealth()<=50){
+                g.setColor(Color.YELLOW);
+                g.fillRect((int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-20),getHealth(),10);
+                normalPlayer();
 
-        }else if(this.getHealth() < 15){
-            g.setColor(Color.RED);
-            g.fillRect((int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-20),getHealth(),10);
+            }else if(this.getHealth() < 15){
+                g.setColor(Color.RED);
+                g.fillRect((int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-20),getHealth(),10);
+                animDown.setAnimation(Images.playerTired_front);
+                animLeft.setAnimation(Images.playerTired_left);
+                animRight.setAnimation(Images.playerTired_right);
+                animUp.setAnimation(Images.playerTired_back);
 
+            }
+            g.setColor(Color.white);
+            g.drawString("Health: " + getHealth(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-10));
         }
-        g.setColor(Color.white);
-        g.drawString("Health: " + getHealth(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-10));
+       }
+    
+    //this function sets the normal player sprite
+    private void normalPlayer(){
+        animDown.setAnimation(Images.player_front);
+        animLeft.setAnimation(Images.player_left);
+        animRight.setAnimation(Images.player_right);
+        animUp.setAnimation(Images.player_back);
     }
 
     public void readyFireAttack(){
@@ -237,6 +257,9 @@ public class Player extends CreatureBase {
         for(EntityBase e : handler.getWorld().getEntityManager().getEntities()){
             if(e.equals(this))
                 continue;
+            if(e.equals(World1.getRickPickle())){
+            	continue;
+            }
             if(e.getCollisionBounds(0, 0).intersects(ar)){
                 e.hurt(attack);
                 System.out.println(e + " has " + e.getHealth() + " lives.");
@@ -363,6 +386,10 @@ public class Player extends CreatureBase {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+    
+    public void setHealthBarVisibility(Boolean visibility){
+    	this.healthBarVisibility = visibility;
     }
 
 	public SpellCastUI getSpellGUI() {

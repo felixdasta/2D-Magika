@@ -21,6 +21,10 @@ public class Images {
     public static BufferedImage[] player_left;
     public static BufferedImage[] player_front;
     public static BufferedImage[] player_back;
+    public static BufferedImage[] playerTired_right;
+    public static BufferedImage[] playerTired_left;
+    public static BufferedImage[] playerTired_front;
+    public static BufferedImage[] playerTired_back;
     public static BufferedImage[] SkelyEnemy_right;
     public static BufferedImage[] SkelyEnemy_left;
     public static BufferedImage[] SkelyEnemy_front;
@@ -78,11 +82,21 @@ public class Images {
         player_right = new BufferedImage[4];
         player_front = new BufferedImage[4];
         player_back = new BufferedImage[4];
+        
+        playerTired_left = new BufferedImage[4];
+        playerTired_right = new BufferedImage[4];
+        playerTired_front = new BufferedImage[4];
+        playerTired_back = new BufferedImage[4];
 
         SkelyEnemy_left = new BufferedImage[4];
         SkelyEnemy_right = new BufferedImage[4];
         SkelyEnemy_front = new BufferedImage[4];
         SkelyEnemy_back = new BufferedImage[4];
+        
+        PickleRick_front = new BufferedImage[4];
+        PickleRick_back = new BufferedImage[4];
+        PickleRick_right = new BufferedImage[4];
+        PickleRick_left = new BufferedImage[4];
 
         butstart = new BufferedImage[3];
         particleSmoke = new BufferedImage[3];
@@ -100,15 +114,7 @@ public class Images {
         FireBallLeft = new BufferedImage[6];
         FireBallRight = new BufferedImage[6];
         FireBallUp = new BufferedImage[6];
-        FireBallDown = new BufferedImage[6];
-
-        PickleRick_front = new BufferedImage[4];
-        PickleRick_back = new BufferedImage[4];
-        PickleRick_right = new BufferedImage[4];
-        PickleRick_left = new BufferedImage[4];
-
-        
-
+        FireBallDown = new BufferedImage[6];   
 
         try {
 
@@ -253,15 +259,36 @@ public class Images {
             player_left[2]=newsheet.crop(359,191,50,68);
             player_left[3]=newsheet.crop(412,191,49,69);
 
-            player_right[0]=newsheet.crop(262,331,49,69);
-            player_right[1]=newsheet.crop(314,331,49,69);
-            player_right[2]=newsheet.crop(366,331,49,69);
-            player_right[3]=newsheet.crop(417,331,49,69);
+            player_right[0]=newsheet.crop(417,331,49,69);
+            player_right[1]=newsheet.crop(366,331,49,69);
+            player_right[2]=newsheet.crop(314,331,49,69);
+            player_right[3]=newsheet.crop(262,331,49,69);
 
             player_back[0]=newsheet.crop(259,262,49,68);
             player_back[1]=newsheet.crop(310,260,49,71);
             player_back[2]=newsheet.crop(362,261,49,69);
             player_back[3]=newsheet.crop(416,260,49,70);
+            
+            //tired player anim
+            playerTired_front[0]=newsheet.crop(473,110,53,73);
+            playerTired_front[1]=newsheet.crop(528,108,53,75);
+            playerTired_front[2]=newsheet.crop(584,110,53,73);
+            playerTired_front[3]=newsheet.crop(639,110,53,73);
+            
+            playerTired_left[0]=newsheet.crop(472,184,50,71);
+            playerTired_left[1]=newsheet.crop(527,184,52,71);
+            playerTired_left[2]=newsheet.crop(583,184,51,71);
+            playerTired_left[3]=newsheet.crop(639,183,50,72);
+            
+            playerTired_right[0]=newsheet.crop(647,329,51,72);
+            playerTired_right[1]=newsheet.crop(591,329,52,72);
+            playerTired_right[2]=newsheet.crop(536,329,52,72);
+            playerTired_right[3]=newsheet.crop(481,330,50,72);
+
+            playerTired_back[0]=newsheet.crop(473,256,53,72);
+            playerTired_back[1]=newsheet.crop(528,254,53,75);
+            playerTired_back[2]=newsheet.crop(584,256,53,72);
+            playerTired_back[3]=newsheet.crop(640,256,53,73);
 
             //Skely enemy anim
             SkelyEnemy_front[0]=newsheet.crop(132,131+130,width,height);

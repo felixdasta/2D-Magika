@@ -4,6 +4,7 @@ import Game.Entities.Creatures.Player;
 import Game.Entities.Creatures.RickPickle;
 import Game.Entities.Creatures.SkelyEnemy;
 import Game.Entities.Statics.*;
+import Game.Inventories.Inventory;
 import Game.Items.Item;
 import Main.Handler;
 
@@ -14,11 +15,24 @@ public class World1 extends BaseWorld{
 
     private Handler handler;
     private BaseWorld caveWorld;
+    private static RickPickle rickPickle;
 
     public World1(Handler handler, String path, Player player){
         super(handler,path,player);
         this.handler = handler;
         caveWorld = new CaveWorld(handler,"res/Maps/caveMap.map",player);
+        rickPickle = new RickPickle(handler, 1000, 1000);
+        
+        
+        //this for loop will restart the items in the inventory every time the game restarts
+        for(int i = 0; i < Item.items.length; i++){
+        	if(Item.items[i] != null){
+        		Item.items[i].setCount(1);
+        	}
+        }
+        
+        Inventory.setCointCount(0);
+        Inventory.setKeyCount(0);
 
         entityManager.addEntity(new Tree(handler, 100, 250));
         entityManager.addEntity(new Rock(handler, 100, 450));
@@ -35,11 +49,15 @@ public class World1 extends BaseWorld{
         entityManager.addEntity(new Brick(handler, 1267, 618));
         entityManager.addEntity(new Brick(handler, 532, 78));
         entityManager.addEntity(new Brick(handler, 382, 1363));
-        entityManager.addEntity(new RickPickle(handler, 1000, 1000));
+        entityManager.addEntity(rickPickle);
         getItemManager().addItem(Item.heart.createNew(457, 657, 1));
 
         entityManager.getPlayer().setX(spawnX);
         entityManager.getPlayer().setY(spawnY);
+    }
+    
+    public static RickPickle getRickPickle(){
+    	return rickPickle;
     }
 
 }

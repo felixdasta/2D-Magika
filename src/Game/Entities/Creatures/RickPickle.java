@@ -1,14 +1,18 @@
 package Game.Entities.Creatures;
 
-import Game.Entities.EntityBase;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.Random;
+
+import com.sun.glass.events.KeyEvent;
+
 import Game.Inventories.Inventory;
 import Game.Items.Item;
 import Main.Handler;
 import Resources.Animation;
+import Resources.Fonts;
 import Resources.Images;
-
-import java.awt.*;
-import java.util.Random;
 
 /**
  * Created by Elemental on 2/7/2017.
@@ -18,15 +22,18 @@ public class RickPickle extends CreatureBase  {
 
     private Animation animDown, animUp, animLeft, animRight;
 
-    private Boolean attacking=false;
-
     private int animWalkingSpeed = 150;
     private Inventory rickPickleInventory;
     private Rectangle rickPickleCam;
+    private Rectangle ar = new Rectangle();
 
     private int healthcounter =0;
 
     private Random randint;
+    private boolean playerInteraction;
+    private static boolean deliveredToRickPickle;
+	private boolean keyDelivered;
+	private int coinsLeft = 3;
     private int moveCount=0;
     private int direction;
 
@@ -36,12 +43,12 @@ public class RickPickle extends CreatureBase  {
         bounds.y=18*2;
         bounds.width=16*2;
         bounds.height=14*2;
-        speed=1.5f;
+        speed=1.0f;
         health=50;
+        keyDelivered = false;
+        deliveredToRickPickle = false;
 
         rickPickleCam= new Rectangle();
-
-
 
         randint = new Random();
         direction = randint.nextInt(4) + 1;
@@ -82,7 +89,7 @@ public class RickPickle extends CreatureBase  {
             healthcounter=0;
         }
 
-
+        playerInteraction = handler.getKeyManager().attbut && handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(ar);
         rickPickleInventory.tick();
 
 
@@ -102,7 +109,6 @@ public class RickPickle extends CreatureBase  {
                 || rickPickleCam.contains(handler.getWorld().getEntityManager().getPlayer().getX() - handler.getGameCamera().getxOffset() + handler.getWorld().getEntityManager().getPlayer().getWidth(), handler.getWorld().getEntityManager().getPlayer().getY() - handler.getGameCamera().getyOffset() + handler.getWorld().getEntityManager().getPlayer().getHeight())) {
 
             Rectangle cb = getCollisionBounds(0, 0);
-            Rectangle ar = new Rectangle();
             int arSize = 13;
             ar.width = arSize;
             ar.height = arSize;
@@ -120,41 +126,7 @@ public class RickPickle extends CreatureBase  {
                 ar.x = cb.x + cb.width;
                 ar.y = cb.y + cb.height / 2 - arSize / 2;
             }
-
-            for (EntityBase e : handler.getWorld().getEntityManager().getEntities()) {
-                if (e.equals(this))
-                    continue;
-                if (e.getCollisionBounds(0, 0).intersects(ar) && e.equals(handler.getWorld().getEntityManager().getPlayer())) {
-
-                    checkAttacks();
-                    return;
-                }
-            }
-
-
-            if (x >= handler.getWorld().getEntityManager().getPlayer().getX() - 8 && x <= handler.getWorld().getEntityManager().getPlayer().getX() + 8) {//nada
-
-                xMove = 0;
-            } else if (x < handler.getWorld().getEntityManager().getPlayer().getX()) {//move right
-
-                xMove = speed;
-
-            } else if (x > handler.getWorld().getEntityManager().getPlayer().getX()) {//move left
-
-                xMove = -speed;
-            }
-
-            if (y >= handler.getWorld().getEntityManager().getPlayer().getY() - 8 && y <= handler.getWorld().getEntityManager().getPlayer().getY() + 8) {//nada
-                yMove = 0;
-            } else if (y < handler.getWorld().getEntityManager().getPlayer().getY()) {//move down
-                yMove = speed;
-
-            } else if (y > handler.getWorld().getEntityManager().getPlayer().getY()) {//move up
-                yMove = -speed;
-            }
-
-
-        } else {
+        }else{
 
 
             switch (direction) {
@@ -174,22 +146,86 @@ public class RickPickle extends CreatureBase  {
             }
         }
     }
-
+    
+    public static Boolean itemsDeliveredToRickPickle(){
+    	return deliveredToRickPickle;
+    }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(getCurrentAnimationFrame(animDown,animUp,animLeft,animRight,Images.PickleRick_front,Images.PickleRick_back,Images.PickleRick_left,Images.PickleRick_right), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
-        if(isBeinghurt() && healthcounter<=120){
-            g.setColor(Color.white);
-            g.drawString("Rick Pickle Health: " + getHealth(),(int) (x-handler.getGameCamera().getxOffset()),(int) (y-handler.getGameCamera().getyOffset()-20));
-        }
+    	g.drawImage(getCurrentAnimationFrame(animDown,animUp,animLeft,animRight,Images.PickleRick_front,Images.PickleRick_back,Images.PickleRick_left,Images.PickleRick_right), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+    	if (!deliveredToRickPickle){
+    		if(playerInteraction && (coinsLeft > 0 || !keyDelivered)){
+    			
+    			handler.getWorld().getEntityManager().getPlayer().setHealthBarVisibility(false);
+    			g.setColor(Color.yellow);
+    			g.setFont(Fonts.codeFont);
+    			g.drawString("I need the following items to open you the door:",(int) (x-handler.getGameCamera().getxOffset()),(int) (y-handler.getGameCamera().getyOffset()-30));
+    			
+    			if(!keyDelivered && Inventory.getKeyCount() >= 1){
+    				if(Inventory.getKeyCount()==1){
+    					handler.getWorld().getEntityManager().getPlayer().getInventory().getInventoryItems().remove(Item.key);
+        				Inventory.setKeyCount(0);
+    				}else{
+        				Inventory.setKeyCount(Inventory.getKeyCount() - 1);
+        				Item.key.setCount(Inventory.getKeyCount());				
+    				}
+    				keyDelivered = true;
+    			}	
+
+    			if(Inventory.getCoinCount() >= coinsLeft){
+    				if(Inventory.getCoinCount()==coinsLeft){
+        				handler.getWorld().getEntityManager().getPlayer().getInventory().getInventoryItems().remove(Item.coin);
+        				Inventory.setCointCount(0);
+    				}else{
+        				Inventory.setCointCount(Inventory.getCoinCount() - coinsLeft);
+        				Item.coin.setCount(Inventory.getCoinCount());
+    				}
+    				coinsLeft = 0;
+    			}
+    			
+    			else if(Inventory.getCoinCount() < 3){
+    					if(Inventory.getCoinCount()==2 && coinsLeft == 3){
+    						coinsLeft = 3 - 2;
+    						Inventory.setCointCount(0);
+    						handler.getWorld().getEntityManager().getPlayer().getInventory().getInventoryItems().remove(Item.coin);
+    					}else if (Inventory.getCoinCount()==1 && coinsLeft == 3){
+    						coinsLeft = 3 - 1;
+    						Inventory.setCointCount(0);
+    						handler.getWorld().getEntityManager().getPlayer().getInventory().getInventoryItems().remove(Item.coin);
+    					}else if (Inventory.getCoinCount()==1 && coinsLeft == 2){
+    						coinsLeft = 2 - 1;
+    						Inventory.setCointCount(0);
+    						handler.getWorld().getEntityManager().getPlayer().getInventory().getInventoryItems().remove(Item.coin);
+    					}
+    			}
+
+    			if(coinsLeft > 0){
+    				g.drawImage(Images.coin, (int) (x-handler.getGameCamera().getxOffset()),(int) (y-handler.getGameCamera().getyOffset()-30), 30, 30, null);
+    				g.drawString(coinsLeft + " coins",(int) (x-handler.getGameCamera().getxOffset())+35,(int) (y-handler.getGameCamera().getyOffset()-10));	
+    			}
+    			
+    			if(!keyDelivered){
+    				g.drawImage(Images.key, (int) (x-handler.getGameCamera().getxOffset()) + 100,(int) (y-handler.getGameCamera().getyOffset()-30), 18, 44, null);
+    				g.drawString("1 key",(int) (x-handler.getGameCamera().getxOffset()) + 100 + 23,(int) (y-handler.getGameCamera().getyOffset()-10));
+    			}
+    		}
+    		else if(playerInteraction && (coinsLeft <= 0 && keyDelivered)){
+    			deliveredToRickPickle=true;
+    		}
+
+    	}else if(playerInteraction){
+    		g.setColor(Color.yellow);
+    		g.setFont(Fonts.codeFont);
+    		g.drawString("Items delivered! Now you can go to the next world",(int) (x-handler.getGameCamera().getxOffset()),(int) (y-handler.getGameCamera().getyOffset()-30));
+    	}
+    	else{
+    		handler.getWorld().getEntityManager().getPlayer().setHealthBarVisibility(true);
+    	}
     }
-
-
-
 
     @Override
     public void die() {
-        handler.getWorld().getItemManager().addItem(Item.key.createNew((int)x + bounds.x,(int)y + bounds.y,1));
+    	
     }
 }

@@ -7,6 +7,7 @@ import Game.GameStates.OptionsState;
 import Game.GameStates.State;
 import Inputs.KeyManager;
 import Inputs.MouseManager;
+import Resources.Fonts;
 import Resources.GameCamera;
 import Resources.Images;
 import Display.DisplayScreen;
@@ -89,6 +90,7 @@ public class Game implements Runnable {
         display.getCanvas().addMouseMotionListener(mouseManager);
 
         Images img = new Images();
+        Fonts fonts = new Fonts();
 
         handler = new Handler(this);
         gameCamera = new GameCamera(handler, 0, 0);

@@ -19,6 +19,8 @@ public class Inventory {
     private Handler handler;
     private boolean active = false;
     private boolean toAdd = true;
+    private static int coinCount;
+    private static int keyCount;
     private UIManager uiManager;
     private ArrayList<Item> inventoryItems;
 
@@ -92,10 +94,8 @@ public class Inventory {
     public void addItem(Item item){
     	for(Item i : inventoryItems){
     		if(i.getId() == item.getId()){
-    			addHealth(item);
-    			if(item.getId()==4 && !handler.getKeyManager().additem){
-    				handler.getGame().playAudio("res/music/Coin.wav", false);
-    			}			
+    			
+    			itemVerifier(item);	
 
     			i.setCount(i.getCount() + 1);
     			return;
@@ -105,12 +105,8 @@ public class Inventory {
     		handler.getWorld().getEntityManager().getPlayer().getSpellGUI().addSpell(new FireBallSpell(handler));
     	}
     	
-    	addHealth(item);
+    	itemVerifier(item);
     	
-		if(item.getId()==4 && !handler.getKeyManager().additem){
-			handler.getGame().playAudio("res/music/Coin.wav", false);
-		}		
-
     	//toAdd verifies that if the item was consumed, it will not be added to the inventory. Otherwise, it will be added.
     	if(toAdd){
     		inventoryItems.add(item);
@@ -118,7 +114,7 @@ public class Inventory {
     	toAdd=true;
     }
     
-    private void addHealth(Item item){
+    private void itemVerifier(Item item){
     	if(item.getId()==3 && !handler.getKeyManager().additem){
 			handler.getGame().playAudio("res/music/Powerup.wav", false);
     		if(handler.getWorld().getEntityManager().getPlayer().getHealth() == 75){
@@ -132,6 +128,15 @@ public class Inventory {
     			toAdd = false;
     		}
     	}
+		if(item.getId()==4){
+			if(!handler.getKeyManager().additem){
+				handler.getGame().playAudio("res/music/Coin.wav", false);		
+			}
+			coinCount++;
+		}
+		if(item.getId()==5){
+			keyCount++;
+		}
     }
 
     //GET SET
@@ -141,6 +146,22 @@ public class Inventory {
 
     public void setHandler(Handler handler) {
         this.handler = handler;
+    }
+    
+    public static void setCointCount(int assignedCoinCount){
+    	coinCount = assignedCoinCount;
+    }
+    
+    public static void setKeyCount(int assignedKeyCount){
+    	keyCount = assignedKeyCount;
+    }
+    
+    public static int getCoinCount(){
+    	return coinCount;
+    }
+    
+    public static int getKeyCount(){
+    	return keyCount;
     }
 
     public ArrayList<Item> getInventoryItems(){

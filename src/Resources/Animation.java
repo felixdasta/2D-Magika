@@ -32,6 +32,9 @@ public class Animation {
         }
 
     }
+    public void setAnimation(BufferedImage[] frames){
+    	this.frames = frames;
+    }
 
     public BufferedImage getCurrentFrame(){
         return frames[index];

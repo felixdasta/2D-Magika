@@ -1,6 +1,7 @@
 package Game.Entities.Statics;
 
 import Game.Entities.Creatures.Player;
+import Game.Entities.Creatures.RickPickle;
 import Game.GameStates.State;
 import Main.Handler;
 import Resources.Images;
@@ -55,30 +56,32 @@ public class Door extends StaticEntity {
 
     @Override
     public void render(Graphics g) {
- //       g.drawImage(Images.door,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
-
-        g.setColor(Color.black);
         checkForPlayer(g, handler.getWorld().getEntityManager().getPlayer());
     }
 
     private void checkForPlayer(Graphics g, Player p) {
         Rectangle pr = p.getCollisionBounds(0,0);
 
-        if(ir.contains(pr) && !EP){
-            g.drawImage(Images.E,(int) x+width,(int) y+10,32,32,null);
-        }
+
         
-      //tab key can be used to skip the world, whenever the player is not "right in front" of the door
-        else if((ir.contains(pr) && EP) || handler.getKeyManager().skipworld){
-        	if(!((p.getX() > 84 && p.getX() < 152) && p.getY() < 65)){
-        		p.setX(100);
-        		p.setY(45);
-        	}
-        	
+        //tab key can be used to skip the world
+        if(handler.getKeyManager().skipworld){
             g.drawImage(Images.EP,(int) x+width,(int) y+10,32,32,null);
             g.drawImage(Images.loading,0,0,800,600,null);
             handler.setWorld(world);
-
+        }
+        
+        if(RickPickle.itemsDeliveredToRickPickle()){
+            g.drawImage(Images.door,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+            g.setColor(Color.black);
+            if(ir.contains(pr) && !EP){
+                g.drawImage(Images.E,(int) x+width,(int) y+10,32,32,null);
+            }
+            else if(ir.contains(pr) && EP){
+                g.drawImage(Images.EP,(int) x+width,(int) y+10,32,32,null);
+                g.drawImage(Images.loading,0,0,800,600,null);
+                handler.setWorld(world);
+            }
         }
     }
 
