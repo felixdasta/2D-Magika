@@ -62,8 +62,16 @@ public class Images {
     public static BufferedImage[] PickleRick_back;
     public static BufferedImage[] PickleRick_left;
     public static BufferedImage[] PickleRick_right;
-
-
+    public static BufferedImage[] horribleMorty_front;
+    public static BufferedImage[] horribleMorty_back;
+    public static BufferedImage[] horribleMorty_left;
+    public static BufferedImage[] horribleMorty_right;
+    public static BufferedImage[] zombieJerry_front;
+    public static BufferedImage[] zombieJerry_back;
+    public static BufferedImage[] zombieJerry_left;
+    public static BufferedImage[] zombieJerry_right;
+    public static BufferedImage magicWand;
+    public static BufferedImage monsterEnergy;
 
     public Images() {
 
@@ -97,6 +105,16 @@ public class Images {
         PickleRick_back = new BufferedImage[4];
         PickleRick_right = new BufferedImage[4];
         PickleRick_left = new BufferedImage[4];
+        
+        horribleMorty_front = new BufferedImage[4];
+        horribleMorty_back = new BufferedImage[4];
+        horribleMorty_left = new BufferedImage[4];
+        horribleMorty_right = new BufferedImage[4];
+        
+        zombieJerry_front = new BufferedImage[4];
+        zombieJerry_back = new BufferedImage[4];
+        zombieJerry_left = new BufferedImage[4];
+        zombieJerry_right = new BufferedImage[4];
 
         butstart = new BufferedImage[3];
         particleSmoke = new BufferedImage[3];
@@ -310,6 +328,54 @@ public class Images {
             SkelyEnemy_back[1]=newsheet.crop(164,227+130,width,height);
             SkelyEnemy_back[2]=newsheet.crop(196,227+130,width,height);
             SkelyEnemy_back[3]=newsheet.crop(228,227+130,28,height);
+            
+            //Horrible Morty anim
+            horribleMorty_front[0]=newsheet.crop(716, 92, 65, 68);
+            horribleMorty_front[1]=newsheet.crop(784, 93, 65, 67);
+            horribleMorty_front[2]=newsheet.crop(853, 92, 64, 68);
+            horribleMorty_front[3]=newsheet.crop(921, 92, 65, 68);
+            
+            horribleMorty_left[0]=newsheet.crop(718,181,61,67);
+            horribleMorty_left[1]=newsheet.crop(786,182,62,65);
+            horribleMorty_left[2]=newsheet.crop(855,181,60,66);
+            horribleMorty_left[3]=newsheet.crop(923,180,60,67);
+            
+            horribleMorty_right[0]=newsheet.crop(918,362,61,66);
+            horribleMorty_right[1]=newsheet.crop(849,363,62,65);
+            horribleMorty_right[2]=newsheet.crop(782,362,60,67);
+            horribleMorty_right[3]=newsheet.crop(714,361,60,67);
+
+            horribleMorty_back[0]=newsheet.crop(716,272,65,63);
+            horribleMorty_back[1]=newsheet.crop(784,273,65,61);
+            horribleMorty_back[2]=newsheet.crop(853,272,64,63);
+            horribleMorty_back[3]=newsheet.crop(921,271,65,64);
+            
+            //Zombie Jerry anim
+            zombieJerry_front[0]=newsheet.crop(1010, 87, 49, 85);
+            zombieJerry_front[1]=newsheet.crop(1062, 87, 48, 85);
+            zombieJerry_front[2]=newsheet.crop(1113, 87, 49, 85);
+            zombieJerry_front[3]=newsheet.crop(1164, 88, 49, 84);
+            
+            zombieJerry_left[0]=newsheet.crop(1009,172,51,84);
+            zombieJerry_left[1]=newsheet.crop(1060,172,51,83);
+            zombieJerry_left[2]=newsheet.crop(1111,172,51,84);
+            zombieJerry_left[3]=newsheet.crop(1163,172,52,84);
+            
+            zombieJerry_right[0]=newsheet.crop(1164,342,51,84);
+            zombieJerry_right[1]=newsheet.crop(1113,342,51,84);
+            zombieJerry_right[2]=newsheet.crop(1062,342,51,84);
+            zombieJerry_right[3]=newsheet.crop(1010,342,51,84);
+
+            zombieJerry_back[0]=newsheet.crop(1010,257,49,85);
+            zombieJerry_back[1]=newsheet.crop(1061,257,49,85);
+            zombieJerry_back[2]=newsheet.crop(1113,257,48,85);
+            zombieJerry_back[3]=newsheet.crop(1164,259,49,83);
+            
+            //Magic wand
+            magicWand = newsheet.crop(254, 476, 43, 45);
+            
+            //Monster Energy
+            monsterEnergy = newsheet.crop(448, 0, 33, 75);
             
             // Pickle Rick 
             PickleRick_front[0] = PickleRicksheet.crop(22, 42, 68, 117);

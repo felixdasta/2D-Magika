@@ -30,7 +30,6 @@ public abstract class CreatureBase extends EntityBase {
 
     protected boolean ld=true,ll=false,lr=false,lu=false;
 
-
     public CreatureBase(Handler handler, float x, float y, int height, int width) {
         super(handler,x, y,height,width);
         speed = DEFAULT_SPEED;
@@ -213,6 +212,14 @@ public abstract class CreatureBase extends EntityBase {
     public void setSpeed(float speed) {
         this.speed = speed;
     }
+
+	public int getAttack() {
+		return attack;
+	}
+
+	public void setAttack(int attack) {
+		this.attack = attack;
+	}
 
 
 

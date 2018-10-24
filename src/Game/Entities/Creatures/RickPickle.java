@@ -5,8 +5,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-import com.sun.glass.events.KeyEvent;
-
 import Game.Inventories.Inventory;
 import Game.Items.Item;
 import Main.Handler;
@@ -212,7 +210,10 @@ public class RickPickle extends CreatureBase  {
     		}
     		else if(playerInteraction && (coinsLeft <= 0 && keyDelivered)){
     			deliveredToRickPickle=true;
-    		}
+    		}    	
+    		else{
+        		handler.getWorld().getEntityManager().getPlayer().setHealthBarVisibility(true);
+        	}
 
     	}else if(playerInteraction){
     		g.setColor(Color.yellow);

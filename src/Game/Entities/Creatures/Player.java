@@ -40,6 +40,7 @@ public class Player extends CreatureBase {
     private Boolean LaunchedFireBallD=false;
     private Boolean attacking=false;
     private Boolean healthBarVisibility = true;
+    private Boolean summonAbility = false;
 
     private int animWalkingSpeed = 150;
     private int animFireSpeed = 250;
@@ -391,6 +392,14 @@ public class Player extends CreatureBase {
     public void setHealthBarVisibility(Boolean visibility){
     	this.healthBarVisibility = visibility;
     }
+
+	public Boolean getSummonAbility() {
+		return summonAbility;
+	}
+
+	public void setSummonAbility(Boolean summonAbility) {
+		this.summonAbility = summonAbility;
+	}
 
 	public SpellCastUI getSpellGUI() {
         return spellGUI;

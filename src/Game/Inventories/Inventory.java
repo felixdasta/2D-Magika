@@ -107,7 +107,9 @@ public class Inventory {
     	
     	itemVerifier(item);
     	
-    	//toAdd verifies that if the item was consumed, it will not be added to the inventory. Otherwise, it will be added.
+    	/*toAdd verifies that if the item was consumed, it will not be added to the inventory. 
+    	 Otherwise, it will be added. (Applies to consumable items such as heart potion
+    	 and energy drink)*/
     	if(toAdd){
     		inventoryItems.add(item);
     	}
@@ -136,6 +138,24 @@ public class Inventory {
 		}
 		if(item.getId()==5){
 			keyCount++;
+		}
+		if(item.getId()==6){
+			handler.getWorld().getEntityManager().getPlayer().setSummonAbility(true);
+		}
+		
+		/*if the player just got the monster energy and his attack level is less or equal than 14, 
+		 his new attack level will be his previous attack level plus three, 
+		 but keep in mind that if the "X" button was pressed or if his attack level
+		 is greater than 14, it will simply be added to the inventory
+		 without increasing the attack level*/
+		if(item.getId()==7 && !handler.getKeyManager().additem){
+			if(handler.getWorld().getEntityManager().getPlayer().getAttack()<=14){
+				handler.getWorld().getEntityManager().getPlayer().setAttack(handler.getWorld().getEntityManager().getPlayer().getAttack()+3);
+				handler.getGame().playAudio("res/music/Powerup.wav", false);
+				toAdd=false;
+			}else{
+				toAdd=true;
+			}
 		}
     }
 
