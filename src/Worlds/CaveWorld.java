@@ -26,6 +26,7 @@ public class CaveWorld extends BaseWorld{
         entityManager.addEntity(zombieJerry);
         entityManager.addEntity(new SkelyEnemy(handler, 1000, 1000));
         getItemManager().addItem(Item.monsterEnergy.createNew(500, 700, 1));
+        getItemManager().addItem(Item.heart.createNew(457, 657, 1));
     }
 
 	public static HorribleMorty getHorribleMorty() {

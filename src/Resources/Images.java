@@ -84,7 +84,7 @@ public class Images {
         SpriteSheet FireBallDownsheet = new SpriteSheet(Images.loadImage("/Sheets/FireBallDown.png"));
         SpriteSheet PickleRicksheet = new SpriteSheet(Images.loadImage("/Sheets/PickleRick.png"));
 
-        blocks = new BufferedImage[16];
+        blocks = new BufferedImage[22];
 
         player_left = new BufferedImage[4];
         player_right = new BufferedImage[4];
@@ -264,6 +264,12 @@ public class Images {
             blocks[13] = newsheet.crop(176,0,Bwidth,Bheight*2);//tree
             blocks[14] = newsheet.crop(174,410,78,74);//rock
             blocks[15] = newsheet.crop(286, 0, Bwidth, Bheight); //brick
+            blocks[16] = newsheet.crop(1150, 0, Bwidth, Bheight); //sand
+            blocks[17] = newsheet.crop(1084, 0, Bwidth, Bheight); //bush
+            blocks[18] = newsheet.crop(1019, 0, Bwidth, Bheight); //stone
+            blocks[19] = newsheet.crop(954, 0, Bwidth, Bheight); //road
+            blocks[20] = newsheet.crop(889, 0, Bwidth, Bheight); //road with lines
+            blocks[21] = newsheet.crop(352, 0, 85, 121); //cactus
 
 
             //player anim
