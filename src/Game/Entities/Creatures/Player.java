@@ -7,6 +7,7 @@ import Game.Items.Item;
 import Game.SpellCast.SpellCastUI;
 import Resources.Animation;
 import Resources.Images;
+import Worlds.CaveWorld;
 import Worlds.World1;
 import Main.Handler;
 import java.awt.*;
@@ -267,7 +268,6 @@ public class Player extends CreatureBase {
                 return;
             }
         }
-
     }
 
     @Override

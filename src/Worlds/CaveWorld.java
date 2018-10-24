@@ -1,6 +1,7 @@
 package Worlds;
 import Game.Entities.Creatures.HorribleMorty;
 import Game.Entities.Creatures.Player;
+import Game.Entities.Creatures.SkelyEnemy;
 import Game.Entities.Creatures.ZombieJerry;
 import Game.Items.Item;
 import Main.Handler;
@@ -23,6 +24,7 @@ public class CaveWorld extends BaseWorld{
         
         entityManager.addEntity(horribleMorty);
         entityManager.addEntity(zombieJerry);
+        entityManager.addEntity(new SkelyEnemy(handler, 1000, 1000));
         getItemManager().addItem(Item.monsterEnergy.createNew(500, 700, 1));
     }
 
