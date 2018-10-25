@@ -143,7 +143,7 @@ public class Inventory {
 			handler.getWorld().getEntityManager().getPlayer().setSummonAbility(true);
 		}
 		
-		/*if the player just got the monster energy and his attack level is less or equal than 14, 
+		/*if the player just got the pizza and his attack level is less or equal than 14, 
 		 his new attack level will be his previous attack level plus three, 
 		 but keep in mind that if the "X" button was pressed or if his attack level
 		 is greater than 14, it will simply be added to the inventory
@@ -151,6 +151,17 @@ public class Inventory {
 		if(item.getId()==7 && !handler.getKeyManager().additem){
 			if(handler.getWorld().getEntityManager().getPlayer().getAttack()<=15){
 				handler.getWorld().getEntityManager().getPlayer().setAttack(handler.getWorld().getEntityManager().getPlayer().getAttack()+3);
+				handler.getGame().playAudio("res/music/Powerup.wav", false);
+				toAdd=false;
+			}else{
+				toAdd=true;
+			}
+		}
+		
+		//monster energy drink, this increases the player's speed
+		if(item.getId()==8 && !handler.getKeyManager().additem){
+			if(handler.getWorld().getEntityManager().getPlayer().getSpeed()<5){
+				handler.getWorld().getEntityManager().getPlayer().setSpeed(handler.getWorld().getEntityManager().getPlayer().getSpeed()+2);
 				handler.getGame().playAudio("res/music/Powerup.wav", false);
 				toAdd=false;
 			}else{

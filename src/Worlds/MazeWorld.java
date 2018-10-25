@@ -17,5 +17,7 @@ public class MazeWorld extends BaseWorld{
         super(handler,path,player);
         this.handler = handler;
         this.player=player;
+        
+        getItemManager().addItem(Item.monsterEnergy.createNew(1000, 1000, 1));
     }
 }

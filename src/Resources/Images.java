@@ -72,7 +72,7 @@ public class Images {
     public static BufferedImage[] zombieJerry_right;
     public static BufferedImage magicWand;
     public static BufferedImage monsterEnergy;
-    //public static BufferedImage[] pizzaBox;
+    public static BufferedImage pizzaBox;
 
     public Images() {
 
@@ -84,7 +84,6 @@ public class Images {
         SpriteSheet FireBallUpsheet = new SpriteSheet(Images.loadImage("/Sheets/FireBallUp.png"));
         SpriteSheet FireBallDownsheet = new SpriteSheet(Images.loadImage("/Sheets/FireBallDown.png"));
         SpriteSheet PickleRicksheet = new SpriteSheet(Images.loadImage("/Sheets/PickleRick.png"));
-        //SpriteSheet pizzaBoxSheet = new SpriteSheet(Images.loadImage(path));
 
         blocks = new BufferedImage[22];
 
@@ -386,7 +385,7 @@ public class Images {
             monsterEnergy = newsheet.crop(448, 0, 33, 75);
             
             //Pizza box
-            //pizzaBox = newsheet.crop();
+            pizzaBox = newsheet.crop(263,417,76,53);
             
             // Pickle Rick 
             PickleRick_front[0] = PickleRicksheet.crop(22, 42, 68, 117);

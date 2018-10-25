@@ -79,6 +79,7 @@ public class Player extends CreatureBase {
 
     @Override
     public void tick() {
+    	System.out.println(System.currentTimeMillis());
         //Animations
         animDown.tick();
         animUp.tick();

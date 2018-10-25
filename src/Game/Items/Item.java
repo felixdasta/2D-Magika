@@ -32,8 +32,9 @@ public class Item {
     public static Item coin = new Item(Images.coin, "Coin", 4);
     public static Item key = new Item(Images.key, "Key", 5);
     public static Item magicWand = new Item(Images.magicWand, "Magic Wand", 6);
-    public static Item monsterEnergy = new Item(Images.monsterEnergy, "Monster Energy", 7);
-
+    public static Item pizzaBox = new Item(Images.pizzaBox, "Pizza", 7);
+    public static Item monsterEnergy = new Item(Images.monsterEnergy, "Monster Energy", 8);
+    
     //class
 
     public Item(BufferedImage texture, String name, int id){
