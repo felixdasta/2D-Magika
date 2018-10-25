@@ -23,7 +23,7 @@ public class CaveWorld extends BaseWorld{
         this.handler = handler;
         this.player=player;
         
-        mazeWorld = new MazeWorld(handler, "res/Maps/caveMap.map", player);
+        mazeWorld = new MazeWorld(handler, "res/Maps/map3.map", player);
         
         horribleMorty = new HorribleMorty(handler, 1015, 1254);
         zombieJerry = new ZombieJerry(handler, 900, 857);
