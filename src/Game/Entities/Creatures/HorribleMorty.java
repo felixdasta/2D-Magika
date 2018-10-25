@@ -6,7 +6,6 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
-
 import Game.Entities.EntityBase;
 import Game.Inventories.Inventory;
 import Game.Items.Item;
@@ -14,11 +13,6 @@ import Main.Handler;
 import Resources.Animation;
 import Resources.Images;
 import Worlds.CaveWorld;
-
-import java.awt.*;
-import java.util.Random;
-
-import com.sun.glass.events.KeyEvent;
 
 /**
  * Created by Elemental on 2/7/2017.

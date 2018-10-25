@@ -1,13 +1,16 @@
 package Game.Entities.Statics;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+
+import com.sun.glass.events.KeyEvent;
+
 import Game.Entities.Creatures.Player;
 import Game.Entities.Creatures.RickPickle;
-import Game.GameStates.State;
 import Main.Handler;
 import Resources.Images;
 import Worlds.BaseWorld;
-
-import java.awt.*;
 
 /**
  * Created by Elemental on 2/2/2017.
@@ -65,7 +68,7 @@ public class Door extends StaticEntity {
 
         
         //tab key can be used to skip the world
-        if(handler.getKeyManager().skipworld){
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_TAB)){
             g.drawImage(Images.EP,(int) x+width,(int) y+10,32,32,null);
             g.drawImage(Images.loading,0,0,800,600,null);
             handler.setWorld(world);
