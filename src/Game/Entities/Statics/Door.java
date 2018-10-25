@@ -3,8 +3,7 @@ package Game.Entities.Statics;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
-import com.sun.glass.events.KeyEvent;
+import java.awt.event.KeyEvent;
 
 import Game.Entities.Creatures.Player;
 import Game.Entities.Creatures.RickPickle;
