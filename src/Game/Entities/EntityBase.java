@@ -20,6 +20,7 @@ public abstract class EntityBase {
     protected boolean active = true;
     protected Rectangle bounds;
     protected boolean beinghurt=false;
+    protected boolean isDead = false;
     protected int count = 0;
 
 
@@ -130,6 +131,10 @@ public abstract class EntityBase {
     public void setActive(boolean active) {
         this.active = active;
     }
+    
+	public Boolean isDead(){
+		return isDead;
+	}
 
 
 }

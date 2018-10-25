@@ -61,7 +61,7 @@ public class Player extends CreatureBase {
         bounds.width=16*2;
         bounds.height=14*2;
         health=75;
-        attack=2;
+        attack=3;
 
 
         animDown = new Animation(animWalkingSpeed,Images.player_front);

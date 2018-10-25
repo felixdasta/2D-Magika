@@ -23,13 +23,12 @@ public class ZombieJerry extends CreatureBase  {
 
 	private Boolean attacking=false;
 	private Boolean isSummoned=false;
-	private Boolean isDead=false;
 
 	private int animWalkingSpeed = 150;
 	private Inventory zombieJerryInventory;
 	private Rectangle zombieJerryCam;
 	private Rectangle ar = new Rectangle();
-	private EntityBase enemyTargetAttack = CaveWorld.getHorribleMorty();
+	private EntityBase targetAttack;
 
 	private int healthcounter =0;
 
@@ -45,6 +44,7 @@ public class ZombieJerry extends CreatureBase  {
 		bounds.height=14*2;
 		speed=1.5f;
 		health=50;
+		targetAttack = this;
 
 		zombieJerryCam= new Rectangle();
 
@@ -67,10 +67,12 @@ public class ZombieJerry extends CreatureBase  {
 		animLeft.tick();
 
 		moveCount ++;
+
 		if(moveCount>=60){
 			moveCount=0;
 			direction = randint.nextInt(4) + 1;
 		}
+
 		checkIfMove();
 
 		move();
@@ -95,6 +97,8 @@ public class ZombieJerry extends CreatureBase  {
 				&& handler.getWorld().getEntityManager().getPlayer().getSummonAbility()){
 			isSummoned = true;
 			handler.getWorld().getEntityManager().getPlayer().setSummonAbility(false);
+			Item.magicWand.setCount(Item.magicWand.getCount()-1);
+			this.setSpeed(handler.getWorld().getEntityManager().getPlayer().getSpeed()-(float)0.9);
 		}
 
 		zombieJerryInventory.tick();
@@ -105,18 +109,7 @@ public class ZombieJerry extends CreatureBase  {
 		return isSummoned;
 	}
 
-	public Boolean isDead(){
-		return isDead;
-	}
-
 	private void checkIfMove() {
-		EntityBase targetAttack;
-		if(!isSummoned){
-			targetAttack = handler.getWorld().getEntityManager().getPlayer();
-		}else{
-			targetAttack = enemyTargetAttack;
-		}
-
 		xMove = 0;
 		yMove = 0;
 
@@ -150,24 +143,48 @@ public class ZombieJerry extends CreatureBase  {
 			for (EntityBase e : handler.getWorld().getEntityManager().getEntities()) {
 				if (e.equals(this))
 					continue;
-				if (!isSummoned && e.getCollisionBounds(0, 0).intersects(ar) && e.equals(handler.getWorld().getEntityManager().getPlayer())) {
+				else if (!isSummoned && e.getCollisionBounds(0, 0).intersects(ar) && e.equals(handler.getWorld().getEntityManager().getPlayer())) {
 
+					targetAttack = handler.getWorld().getEntityManager().getPlayer();
 					checkAttacks();
 					return;
 
-				}if(isSummoned && e.getCollisionBounds(0, 0).intersects(ar) && !(e.equals(handler.getWorld().getEntityManager().getPlayer()))){
+				}else if((this.getX() >= e.getX() - 15 && this.getX() <= e.getX() + 15) || (this.getY() >= e.getY() - 15 && this.getY() <= e.getY() + 15)){
+					targetAttack = e;
+					if(isSummoned && e.getCollisionBounds(0, 0).intersects(ar) && !(e.equals(handler.getWorld().getEntityManager().getPlayer()))){
 
-					enemyTargetAttack = e;
-					checkAttacks();
-					return;
+						checkAttacks();
+						return;
 
+					}
+				}else{
+					targetAttack = handler.getWorld().getEntityManager().getPlayer();	
 				}
 			}
 
-			entityProximity(targetAttack);
+		if(!handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(ar)){
+			if (x >= targetAttack.getX() - 8 && x <= targetAttack.getX() + 8) {//nada
+				xMove = 0;
+			} else if (x < targetAttack.getX()) {//move right
 
-		} else {
+				xMove = speed;
 
+			} else if (x > targetAttack.getX()) {//move left
+
+				xMove = -speed;
+			}
+
+			if (y >= targetAttack.getY() - 8 && y <= targetAttack.getY() + 8) {//nada
+				yMove = 0;
+			} else if (y < targetAttack.getY()) {//move down
+				yMove = speed;
+
+			} else if (y > targetAttack.getY()) {//move up
+				yMove = -speed;
+			}	
+		}
+
+		} else if(!isSummoned){
 
 			switch (direction) {
 			case 1://up
@@ -186,29 +203,6 @@ public class ZombieJerry extends CreatureBase  {
 			}
 		}
 	}
-
-	private void entityProximity(EntityBase targetAttack){
-		if (x >= targetAttack.getX() - 8 && x <= targetAttack.getX() + 8) {//nada
-			xMove = 0;
-		} else if (x < targetAttack.getX()) {//move right
-
-			xMove = speed;
-
-		} else if (x > targetAttack.getX()) {//move left
-
-			xMove = -speed;
-		}
-
-		if (y >= targetAttack.getY() - 8 && y <= targetAttack.getY() + 8) {//nada
-			yMove = 0;
-		} else if (y < targetAttack.getY()) {//move down
-			yMove = speed;
-
-		} else if (y > targetAttack.getY()) {//move up
-			yMove = -speed;
-		}
-	}
-
 
 	@Override
 	public void render(Graphics g) {

@@ -122,11 +122,11 @@ public class Inventory {
     		if(handler.getWorld().getEntityManager().getPlayer().getHealth() == 75){
     			toAdd = true;
     		}
-    		else if(handler.getWorld().getEntityManager().getPlayer().getHealth() > 60){
+    		else if(handler.getWorld().getEntityManager().getPlayer().getHealth() > 45){
     			handler.getWorld().getEntityManager().getPlayer().setHealth(75);
     			toAdd = false;
     		}else{
-    			handler.getWorld().getEntityManager().getPlayer().setHealth(handler.getWorld().getEntityManager().getPlayer().getHealth() + 15);
+    			handler.getWorld().getEntityManager().getPlayer().setHealth(handler.getWorld().getEntityManager().getPlayer().getHealth() + 30);
     			toAdd = false;
     		}
     	}
@@ -149,7 +149,7 @@ public class Inventory {
 		 is greater than 14, it will simply be added to the inventory
 		 without increasing the attack level*/
 		if(item.getId()==7 && !handler.getKeyManager().additem){
-			if(handler.getWorld().getEntityManager().getPlayer().getAttack()<=14){
+			if(handler.getWorld().getEntityManager().getPlayer().getAttack()<=15){
 				handler.getWorld().getEntityManager().getPlayer().setAttack(handler.getWorld().getEntityManager().getPlayer().getAttack()+3);
 				handler.getGame().playAudio("res/music/Powerup.wav", false);
 				toAdd=false;

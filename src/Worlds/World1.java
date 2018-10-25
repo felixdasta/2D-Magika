@@ -54,6 +54,7 @@ public class World1 extends BaseWorld{
         entityManager.addEntity(new Brick(handler, 382, 1363));
         entityManager.addEntity(rickPickle);
         getItemManager().addItem(Item.heart.createNew(457, 657, 1));
+        getItemManager().addItem(Item.heart.createNew(848, 1364, 1));
 
         entityManager.getPlayer().setX(spawnX);
         entityManager.getPlayer().setY(spawnY);

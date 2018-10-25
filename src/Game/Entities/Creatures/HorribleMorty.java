@@ -23,13 +23,12 @@ public class HorribleMorty extends CreatureBase  {
 
 	private Boolean attacking=false;
 	private Boolean isSummoned=false;
-	private Boolean isDead=false;
 
 	private int animWalkingSpeed = 150;
 	private Inventory horribleMortyInventory;
 	private Rectangle horribleMortyCam;
 	private Rectangle ar = new Rectangle();
-	private EntityBase enemyTargetAttack = CaveWorld.getZombieJerry();
+	private EntityBase targetAttack;
 
 	private int healthcounter =0;
 
@@ -45,6 +44,7 @@ public class HorribleMorty extends CreatureBase  {
 		bounds.height=14*2;
 		speed=1.5f;
 		health=50;
+		targetAttack = this;
 
 		horribleMortyCam= new Rectangle();
 
@@ -67,10 +67,12 @@ public class HorribleMorty extends CreatureBase  {
 		animLeft.tick();
 
 		moveCount ++;
+		
 		if(moveCount>=60){
 			moveCount=0;
 			direction = randint.nextInt(4) + 1;
 		}
+		
 		checkIfMove();
 
 		move();
@@ -95,6 +97,8 @@ public class HorribleMorty extends CreatureBase  {
 				&& handler.getWorld().getEntityManager().getPlayer().getSummonAbility()){
 			isSummoned = true;
 			handler.getWorld().getEntityManager().getPlayer().setSummonAbility(false);
+			Item.magicWand.setCount(Item.magicWand.getCount()-1);
+			this.setSpeed(handler.getWorld().getEntityManager().getPlayer().getSpeed()-(float)0.9);
 		}
 
 		horribleMortyInventory.tick();
@@ -106,18 +110,7 @@ public class HorribleMorty extends CreatureBase  {
 		return isSummoned;
 	}
 
-	public Boolean isDead(){
-		return isDead;
-	}
-
 	private void checkIfMove() {
-		EntityBase targetAttack;
-		if(!isSummoned){
-			targetAttack = handler.getWorld().getEntityManager().getPlayer();
-		}else{
-			targetAttack = enemyTargetAttack;
-		}
-		
 		xMove = 0;
 		yMove = 0;
 
@@ -126,8 +119,8 @@ public class HorribleMorty extends CreatureBase  {
 		horribleMortyCam.width = 64 * 7;
 		horribleMortyCam.height = 64 * 7;
 
-		if (horribleMortyCam.contains(targetAttack.getX() - handler.getGameCamera().getxOffset(), targetAttack.getY() - handler.getGameCamera().getyOffset())
-				|| horribleMortyCam.contains(targetAttack.getX() - handler.getGameCamera().getxOffset() + targetAttack.getWidth(), targetAttack.getY() - handler.getGameCamera().getyOffset() + targetAttack.getHeight())) {
+		if (horribleMortyCam.contains(handler.getWorld().getEntityManager().getPlayer().getX() - handler.getGameCamera().getxOffset(), handler.getWorld().getEntityManager().getPlayer().getY() - handler.getGameCamera().getyOffset())
+				|| horribleMortyCam.contains(handler.getWorld().getEntityManager().getPlayer().getX() - handler.getGameCamera().getxOffset() + handler.getWorld().getEntityManager().getPlayer().getWidth(), handler.getWorld().getEntityManager().getPlayer().getY() - handler.getGameCamera().getyOffset() + handler.getWorld().getEntityManager().getPlayer().getHeight())) {
 
 			Rectangle cb = getCollisionBounds(0, 0);
 			int arSize = 13;
@@ -151,24 +144,48 @@ public class HorribleMorty extends CreatureBase  {
 			for (EntityBase e : handler.getWorld().getEntityManager().getEntities()) {
 				if (e.equals(this))
 					continue;
-				if (!isSummoned && e.getCollisionBounds(0, 0).intersects(ar) && e.equals(handler.getWorld().getEntityManager().getPlayer())) {
+				else if (!isSummoned && e.getCollisionBounds(0, 0).intersects(ar) && e.equals(handler.getWorld().getEntityManager().getPlayer())) {
 
+					targetAttack = handler.getWorld().getEntityManager().getPlayer();
 					checkAttacks();
 					return;
 
-				}if(isSummoned && e.getCollisionBounds(0, 0).intersects(ar) && !(e.equals(handler.getWorld().getEntityManager().getPlayer()))){
+				}else if((this.getX() >= e.getX() - 15 && this.getX() <= e.getX() + 15) || (this.getY() >= e.getY() - 15 && this.getY() <= e.getY() + 15)){
+					targetAttack = e;
+					if(isSummoned && e.getCollisionBounds(0, 0).intersects(ar) && !(e.equals(handler.getWorld().getEntityManager().getPlayer()))){
 
-					enemyTargetAttack = e;
-					checkAttacks();
-					return;
+						checkAttacks();
+						return;
 
+					}
+				}else{
+					targetAttack = handler.getWorld().getEntityManager().getPlayer();	
 				}
 			}
+			
+			if(!handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(ar)){
+				if (x >= targetAttack.getX() - 8 && x <= targetAttack.getX() + 8) {//nada
+					xMove = 0;
+				} else if (x < targetAttack.getX()) {//move right
 
-			entityProximity(targetAttack);
+					xMove = speed;
 
-		} else {
+				} else if (x > targetAttack.getX()) {//move left
 
+					xMove = -speed;
+				}
+
+				if (y >= targetAttack.getY() - 8 && y <= targetAttack.getY() + 8) {//nada
+					yMove = 0;
+				} else if (y < targetAttack.getY()) {//move down
+					yMove = speed;
+
+				} else if (y > targetAttack.getY()) {//move up
+					yMove = -speed;
+				}	
+			}
+
+		} else if(!isSummoned){
 
 			switch (direction) {
 			case 1://up
@@ -187,29 +204,6 @@ public class HorribleMorty extends CreatureBase  {
 			}
 		}
 	}
-
-	private void entityProximity(EntityBase targetAttack){
-		if (x >= targetAttack.getX() - 8 && x <= targetAttack.getX() + 8) {//nada
-			xMove = 0;
-		} else if (x < targetAttack.getX()) {//move right
-
-			xMove = speed;
-
-		} else if (x > targetAttack.getX()) {//move left
-
-			xMove = -speed;
-		}
-
-		if (y >= targetAttack.getY() - 8 && y <= targetAttack.getY() + 8) {//nada
-			yMove = 0;
-		} else if (y < targetAttack.getY()) {//move down
-			yMove = speed;
-
-		} else if (y > targetAttack.getY()) {//move up
-			yMove = -speed;
-		}
-	}
-
 
 	@Override
 	public void render(Graphics g) {
