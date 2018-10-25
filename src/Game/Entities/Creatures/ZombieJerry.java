@@ -9,9 +9,9 @@ import Resources.Images;
 import Worlds.CaveWorld;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
-import com.sun.glass.events.KeyEvent;
 
 /**
  * Created by Elemental on 2/7/2017.
