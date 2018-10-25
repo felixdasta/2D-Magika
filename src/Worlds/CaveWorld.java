@@ -14,6 +14,7 @@ public class CaveWorld extends BaseWorld{
     private Player player;
     private static HorribleMorty horribleMorty;
     private static ZombieJerry zombieJerry;
+    private static SkelyEnemy skelyenemy;
 
     public CaveWorld(Handler handler, String path, Player player) {
         super(handler,path,player);
@@ -21,12 +22,14 @@ public class CaveWorld extends BaseWorld{
         this.player=player;
         horribleMorty = new HorribleMorty(handler, 1015, 1254);
         zombieJerry = new ZombieJerry(handler, 900, 857);
+        skelyenemy = new SkelyEnemy(handler, 1000, 1000);
         
         entityManager.addEntity(horribleMorty);
         entityManager.addEntity(zombieJerry);
-        entityManager.addEntity(new SkelyEnemy(handler, 1000, 1000));
-        getItemManager().addItem(Item.monsterEnergy.createNew(500, 700, 1));
+        entityManager.addEntity(skelyenemy);
+        getItemManager().addItem(Item.monsterEnergy.createNew(590, 915, 1));
         getItemManager().addItem(Item.heart.createNew(457, 657, 1));
+        getItemManager().addItem(Item.heart.createNew(912, 1040, 1));
     }
 
 	public static HorribleMorty getHorribleMorty() {
@@ -37,5 +40,8 @@ public class CaveWorld extends BaseWorld{
 		return zombieJerry;
 	}
 
+	public static SkelyEnemy getSkelyEnemy() {
+		return skelyenemy;
+	}
 
 }
