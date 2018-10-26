@@ -34,6 +34,13 @@ public class Tile {
     public static Tile centerRoadLineTile = new CenterRoadLineTile(18);
     public static Tile woodTile = new WoodTile(19);
     public static Tile sidewalkTile = new SidewalkTile(20);
+    public static Tile uppersandwallTile = new BorderTile(Images.blocks[25],21);
+    public static Tile leftwallsandTile = new BorderTile(Images.blocks[26],22);
+    public static Tile sandlowerwallTile = new BorderTile(Images.blocks[30], 23);
+    public static Tile sandrightcornerwallTile = new BorderTile(Images.blocks[31], 24);
+    public static Tile upperbushwallTile = new BorderTile(Images.blocks[29], 25);
+    public static Tile refactoredgrassupeerwallTile = new BorderTile(Images.blocks[28], 26);
+    
 
     //CLASS
 

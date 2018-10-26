@@ -90,11 +90,11 @@ public class Door extends StaticEntity {
         }
         if(!(this.world instanceof CaveWorld || this.world instanceof MazeWorld)){
         	if(!mazeWorldSpawn){
-        		handler.getWorld().getEntityManager().getPlayer().setX(575);
-        		handler.getWorld().getEntityManager().getPlayer().setY(260);
+        		handler.getWorld().getEntityManager().getPlayer().setX(318);
+        		handler.getWorld().getEntityManager().getPlayer().setY(250);
         		mazeWorldSpawn=true;
         	}
-        	g.drawImage(Images.tunnel, (int)(x-handler.getGameCamera().getxOffset())+357,(int)(y-handler.getGameCamera().getyOffset())-4, 300, 260, null);
+        	g.drawImage(Images.tunnel, (int)(x-handler.getGameCamera().getxOffset())+105,(int)(y-handler.getGameCamera().getyOffset())-4, 300, 260, null);
         }
     }
 

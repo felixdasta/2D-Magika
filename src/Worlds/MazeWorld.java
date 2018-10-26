@@ -21,6 +21,6 @@ public class MazeWorld extends BaseWorld{
         this.player=player;
         
         entityManager.addEntity(new Door(handler, 100, 0, null));
-        getItemManager().addItem(Item.monsterEnergy.createNew(590, 575, 1));
+        getItemManager().addItem(Item.monsterEnergy.createNew(333, 575, 1));
     }
 }

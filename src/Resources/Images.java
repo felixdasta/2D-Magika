@@ -87,7 +87,7 @@ public class Images {
         SpriteSheet FireBallDownsheet = new SpriteSheet(Images.loadImage("/Sheets/FireBallDown.png"));
         SpriteSheet PickleRicksheet = new SpriteSheet(Images.loadImage("/Sheets/PickleRick.png"));
 
-        blocks = new BufferedImage[25];
+        blocks = new BufferedImage[32];
 
         player_left = new BufferedImage[4];
         player_right = new BufferedImage[4];
@@ -255,7 +255,7 @@ public class Images {
             numbers[20]= numsheet.crop(149,198,28,20);
 
 
-            //block images,array index is equal to block id
+            //block images,array index is NOT equal to block id
             blocks[1] = newsheet.crop(0,324,Bwidth,Bheight);//grass
             blocks[2] = newsheet.crop(67,260,Bwidth,Bheight);//dirt
             blocks[3] = newsheet.crop(67,324,Bwidth,Bheight);//dirtrock
@@ -280,6 +280,13 @@ public class Images {
             blocks[22] = newsheet.crop(758, 0, Bwidth, Bheight); // wooden block
             blocks[23] = newsheet.crop(693, 0, Bwidth, Bheight); //centerwall block
             blocks[24] = newsheet.crop(823, 0, Bwidth, Bheight); //sidewalk block
+            blocks[25] = newsheet.crop(628, 0, Bwidth, Bheight); //sand upperwall
+            blocks[26] = newsheet.crop(563, 0, Bwidth, Bheight); //sand leftwall
+            blocks[27] = newsheet.crop(493, 3, 58, 66); //cone
+            blocks[28] = newsheet.crop(1151, 458, Bwidth, Bheight); //refactored grass upperwall
+            blocks[29] = newsheet.crop(1086, 458, Bwidth, Bheight); //bush upperwall
+            blocks[30] = newsheet.crop(1021, 458, Bwidth, Bheight); //sand lowerwall
+            blocks[31] = newsheet.crop(956, 458, Bwidth, Bheight); //sand rightcorner
 
 
             //player anim
