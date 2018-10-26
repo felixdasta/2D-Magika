@@ -36,6 +36,7 @@ public class Images {
     public static BufferedImage inventory;
     public static BufferedImage title;
     public static BufferedImage door;
+    public static BufferedImage tunnel;
     public static BufferedImage E;
     public static BufferedImage EP;
     public static BufferedImage Pause;
@@ -73,6 +74,7 @@ public class Images {
     public static BufferedImage magicWand;
     public static BufferedImage monsterEnergy;
     public static BufferedImage pizzaBox;
+    public static BufferedImage trophy;
 
     public Images() {
 
@@ -85,7 +87,7 @@ public class Images {
         SpriteSheet FireBallDownsheet = new SpriteSheet(Images.loadImage("/Sheets/FireBallDown.png"));
         SpriteSheet PickleRicksheet = new SpriteSheet(Images.loadImage("/Sheets/PickleRick.png"));
 
-        blocks = new BufferedImage[22];
+        blocks = new BufferedImage[25];
 
         player_left = new BufferedImage[4];
         player_right = new BufferedImage[4];
@@ -143,6 +145,7 @@ public class Images {
             inventory = ImageIO.read(getClass().getResourceAsStream("/Sheets/guit.png"));
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
             door = ImageIO.read(getClass().getResourceAsStream("/Sheets/Door.png"));
+            tunnel = ImageIO.read(getClass().getResourceAsStream("/Sheets/Tunnel.png"));
             E = ImageIO.read(getClass().getResourceAsStream("/Buttons/E.png"));
             EP = ImageIO.read(getClass().getResourceAsStream("/Buttons/EP.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
@@ -214,6 +217,9 @@ public class Images {
             
             //Key
             key = newsheet.crop(255, 0, 30, 76);
+            
+            //Trophy
+            trophy = newsheet.crop(348, 455, 54, 63);
 
             blocks[0] = ImageIO.read(getClass().getResourceAsStream("/Blocks/Slime.png"));
 
@@ -269,8 +275,11 @@ public class Images {
             blocks[17] = newsheet.crop(1084, 0, Bwidth, Bheight); //bush
             blocks[18] = newsheet.crop(1019, 0, Bwidth, Bheight); //stone
             blocks[19] = newsheet.crop(954, 0, Bwidth, Bheight); //road
-            blocks[20] = newsheet.crop(889, 0, Bwidth, Bheight); //road with lines
+            blocks[20] = newsheet.crop(888, 0, Bwidth, Bheight); //road with lines
             blocks[21] = newsheet.crop(352, 0, 85, 121); //cactus
+            blocks[22] = newsheet.crop(758, 0, Bwidth, Bheight); // wooden block
+            blocks[23] = newsheet.crop(693, 0, Bwidth, Bheight); //centerwall block
+            blocks[24] = newsheet.crop(823, 0, Bwidth, Bheight); //sidewalk block
 
 
             //player anim

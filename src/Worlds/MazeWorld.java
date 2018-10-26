@@ -1,9 +1,11 @@
 package Worlds;
+import java.awt.Graphics;
+
 import Game.Entities.Creatures.Player;
 import Game.Entities.Statics.Door;
-import Game.GameStates.GameState;
 import Game.Items.Item;
 import Main.Handler;
+import Resources.Images;
 
 /**
  * Created by Elemental on 2/10/2017.
@@ -18,6 +20,7 @@ public class MazeWorld extends BaseWorld{
         this.handler = handler;
         this.player=player;
         
-        getItemManager().addItem(Item.monsterEnergy.createNew(1000, 1000, 1));
+        entityManager.addEntity(new Door(handler, 100, 0, null));
+        getItemManager().addItem(Item.monsterEnergy.createNew(590, 575, 1));
     }
 }

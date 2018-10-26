@@ -8,4 +8,9 @@ public class StoneTile extends Tile{
         super(Images.blocks[18], id);
 
     }
+	
+    @Override
+    public boolean isSolid(){
+        return true;
+    }
 }

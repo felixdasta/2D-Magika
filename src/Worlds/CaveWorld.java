@@ -33,10 +33,9 @@ public class CaveWorld extends BaseWorld{
         entityManager.addEntity(zombieJerry);
         entityManager.addEntity(skelyenemy);
         entityManager.addEntity(new Door(handler, 100, 0,mazeWorld));
-//        getItemManager().addItem(Item.pizzaBox.createNew(590, 915, 1));
+        getItemManager().addItem(Item.pizzaBox.createNew(590, 915, 1));
         getItemManager().addItem(Item.heart.createNew(457, 657, 1));
         getItemManager().addItem(Item.heart.createNew(912, 1040, 1));
-        getItemManager().addItem(Item.monsterEnergy.createNew(590, 915, 1));
     }
 
 	public static HorribleMorty getHorribleMorty() {

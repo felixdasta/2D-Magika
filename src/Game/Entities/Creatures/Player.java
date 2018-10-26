@@ -125,7 +125,7 @@ public class Player extends CreatureBase {
             fireAttack();
 
         }
-        System.out.println(this.speed);
+
         //Verifies Energy Drink Consumption (30 seconds of effect)
         if(Inventory.isEnergyDrinkConsumed()){
         	internalGameTimer++;

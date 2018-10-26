@@ -7,9 +7,12 @@ import java.awt.event.KeyEvent;
 
 import Game.Entities.Creatures.Player;
 import Game.Entities.Creatures.RickPickle;
+import Game.Inventories.Inventory;
 import Main.Handler;
 import Resources.Images;
 import Worlds.BaseWorld;
+import Worlds.CaveWorld;
+import Worlds.MazeWorld;
 
 /**
  * Created by Elemental on 2/2/2017.
@@ -19,7 +22,7 @@ import Worlds.BaseWorld;
 public class Door extends StaticEntity {
 
     private Rectangle ir = new Rectangle();
-    public Boolean EP = false;
+    public Boolean EP = false, mazeWorldSpawn = false;
 
     private BaseWorld world;
 
@@ -67,13 +70,13 @@ public class Door extends StaticEntity {
 
         
         //tab key can be used to skip the world
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_TAB)){
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_TAB) && this.world != null){
             g.drawImage(Images.EP,(int) x+width,(int) y+10,32,32,null);
             g.drawImage(Images.loading,0,0,800,600,null);
             handler.setWorld(world);
         }
         
-        if(RickPickle.itemsDeliveredToRickPickle()){
+        if((RickPickle.itemsDeliveredToRickPickle() && this.world instanceof CaveWorld) || (this.world instanceof MazeWorld && Inventory.getKeyCount()>=1)){
             g.drawImage(Images.door,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
             g.setColor(Color.black);
             if(ir.contains(pr) && !EP){
@@ -84,6 +87,14 @@ public class Door extends StaticEntity {
                 g.drawImage(Images.loading,0,0,800,600,null);
                 handler.setWorld(world);
             }
+        }
+        if(!(this.world instanceof CaveWorld || this.world instanceof MazeWorld)){
+        	if(!mazeWorldSpawn){
+        		handler.getWorld().getEntityManager().getPlayer().setX(575);
+        		handler.getWorld().getEntityManager().getPlayer().setY(260);
+        		mazeWorldSpawn=true;
+        	}
+        	g.drawImage(Images.tunnel, (int)(x-handler.getGameCamera().getxOffset())+357,(int)(y-handler.getGameCamera().getyOffset())-4, 300, 260, null);
         }
     }
 
