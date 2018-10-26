@@ -19,6 +19,7 @@ public class Inventory {
     private Handler handler;
     private boolean active = false;
     private boolean toAdd = true;
+    private static boolean energyDrinkConsumed = false;
     private static int coinCount;
     private static int keyCount;
     private UIManager uiManager;
@@ -161,6 +162,7 @@ public class Inventory {
 		//monster energy drink, this increases the player's speed
 		if(item.getId()==8 && !handler.getKeyManager().additem){
 			if(handler.getWorld().getEntityManager().getPlayer().getSpeed()<5){
+				energyDrinkConsumed=true;
 				handler.getWorld().getEntityManager().getPlayer().setSpeed(handler.getWorld().getEntityManager().getPlayer().getSpeed()+2);
 				handler.getGame().playAudio("res/music/Powerup.wav", false);
 				toAdd=false;
@@ -183,7 +185,11 @@ public class Inventory {
     	coinCount = assignedCoinCount;
     }
     
-    public static void setKeyCount(int assignedKeyCount){
+    public static void setEnergyDrinkConsumed(boolean energyDrinkConsumed) {
+		Inventory.energyDrinkConsumed = energyDrinkConsumed;
+	}
+
+	public static void setKeyCount(int assignedKeyCount){
     	keyCount = assignedKeyCount;
     }
     
@@ -194,12 +200,16 @@ public class Inventory {
     public static int getKeyCount(){
     	return keyCount;
     }
+    
+    public static boolean isEnergyDrinkConsumed() {
+		return energyDrinkConsumed;
+	}
 
     public ArrayList<Item> getInventoryItems(){
         return inventoryItems;
     }
 
-    public void setActive(boolean active) {
+	public void setActive(boolean active) {
         this.active = active;
     }
 }

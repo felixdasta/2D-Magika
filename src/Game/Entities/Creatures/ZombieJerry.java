@@ -100,7 +100,7 @@ public class ZombieJerry extends CreatureBase  {
 			isSummoned = true;
 			handler.getWorld().getEntityManager().getPlayer().setSummonAbility(false);
 			Item.magicWand.setCount(Item.magicWand.getCount()-1);
-			this.setSpeed(handler.getWorld().getEntityManager().getPlayer().getSpeed()-(float)0.9);
+			this.setSpeed((float)2.1);
 		}
 
 		zombieJerryInventory.tick();

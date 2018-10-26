@@ -1,18 +1,20 @@
 package Game.Entities.Creatures;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+
 import Game.Entities.EntityBase;
 import Game.GameStates.State;
 import Game.Inventories.Inventory;
 import Game.Items.Item;
 import Game.SpellCast.SpellCastUI;
+import Main.Handler;
 import Resources.Animation;
 import Resources.Images;
-import Worlds.CaveWorld;
 import Worlds.World1;
-import Main.Handler;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 
 /**
  * Created by Elemental on 1/1/2017.
@@ -48,6 +50,7 @@ public class Player extends CreatureBase {
     private int FireSpeed = 2;
     private int FireMove = 0;
     private int movexp,moveyp,movexn,moveyn,tempmoveyp,tempmovexn,tempmoveyn,tempmovexp,fy,fx;
+    private int internalGameTimer;
 
     //spells
 
@@ -62,7 +65,7 @@ public class Player extends CreatureBase {
         bounds.height=14*2;
         health=75;
         attack=3;
-
+        internalGameTimer = 0;
 
         animDown = new Animation(animWalkingSpeed,Images.player_front);
         animLeft = new Animation(animWalkingSpeed,Images.player_left);
@@ -79,7 +82,6 @@ public class Player extends CreatureBase {
 
     @Override
     public void tick() {
-    	System.out.println(System.currentTimeMillis());
         //Animations
         animDown.tick();
         animUp.tick();
@@ -122,6 +124,16 @@ public class Player extends CreatureBase {
 
             fireAttack();
 
+        }
+        System.out.println(this.speed);
+        //Verifies Energy Drink Consumption (30 seconds of effect)
+        if(Inventory.isEnergyDrinkConsumed()){
+        	internalGameTimer++;
+        	if(internalGameTimer/60 > 30){
+        		this.setSpeed(getSpeed()-2);
+        		internalGameTimer = 0;
+        		Inventory.setEnergyDrinkConsumed(false);
+        	}
         }
         
         // Adds health
