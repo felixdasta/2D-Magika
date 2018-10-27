@@ -71,6 +71,8 @@ public class Door extends StaticEntity {
         
         //tab key can be used to skip the world
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_TAB) && this.world != null){
+    		handler.getWorld().getEntityManager().getPlayer().setX(100);
+    		handler.getWorld().getEntityManager().getPlayer().setY(100);
             g.drawImage(Images.EP,(int) x+width,(int) y+10,32,32,null);
             g.drawImage(Images.loading,0,0,800,600,null);
             handler.setWorld(world);

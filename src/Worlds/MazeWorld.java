@@ -48,6 +48,7 @@ public class MazeWorld extends BaseWorld{
         getItemManager().addItem(Item.monsterEnergy.createNew(333, 575, 1));
         getItemManager().addItem(Item.pizzaBox.createNew(900, 826, 1));
         getItemManager().addItem(Item.heart.createNew(801, 801, 1));
+        getItemManager().addItem(Item.heart.createNew(1393, 590, 1));
         entityManager.addEntity(rick);
     }
     
