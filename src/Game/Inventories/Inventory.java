@@ -22,6 +22,7 @@ public class Inventory {
     private static boolean energyDrinkConsumed = false;
     private static int coinCount;
     private static int keyCount;
+    private static int trophyCount;
     private UIManager uiManager;
     private ArrayList<Item> inventoryItems;
 
@@ -170,6 +171,10 @@ public class Inventory {
 				toAdd=true;
 			}
 		}
+		
+		if(item.getId()==9){
+			trophyCount++;
+		}
     }
 
     //GET SET
@@ -192,6 +197,10 @@ public class Inventory {
 	public static void setKeyCount(int assignedKeyCount){
     	keyCount = assignedKeyCount;
     }
+	
+	public static void setTrophyCount(int assignedTrophyCount){
+    	trophyCount = assignedTrophyCount;
+    }
     
     public static int getCoinCount(){
     	return coinCount;
@@ -199,6 +208,10 @@ public class Inventory {
     
     public static int getKeyCount(){
     	return keyCount;
+    }
+    
+    public static int getTrophyCount(){
+    	return trophyCount;
     }
     
     public static boolean isEnergyDrinkConsumed() {

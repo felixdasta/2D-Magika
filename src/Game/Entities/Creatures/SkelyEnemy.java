@@ -19,6 +19,7 @@ public class SkelyEnemy extends CreatureBase  {
     private Animation animDown, animUp, animLeft, animRight;
 
     private Boolean attacking=false;
+    private Boolean dropKey = true;
 
     private int animWalkingSpeed = 150;
     private Inventory Skelyinventory;
@@ -87,7 +88,10 @@ public class SkelyEnemy extends CreatureBase  {
 
 
     }
-
+    
+    public void setDropKey(Boolean dropKey){
+    	this.dropKey = dropKey;
+    }
 
     private void checkIfMove() {
         xMove = 0;
@@ -190,6 +194,9 @@ public class SkelyEnemy extends CreatureBase  {
 
     @Override
     public void die() {
+    	isDead=true;
+    	if(dropKey){
         handler.getWorld().getItemManager().addItem(Item.key.createNew((int)x + bounds.x,(int)y + bounds.y,1));
+    	}
     }
 }

@@ -29,6 +29,10 @@ public class Images {
     public static BufferedImage[] SkelyEnemy_left;
     public static BufferedImage[] SkelyEnemy_front;
     public static BufferedImage[] SkelyEnemy_back;
+    public static BufferedImage[] pinkSkelyEnemy_right;
+    public static BufferedImage[] pinkSkelyEnemy_left;
+    public static BufferedImage[] pinkSkelyEnemy_front;
+    public static BufferedImage[] pinkSkelyEnemy_back;
     public static BufferedImage[] butstart;
     public static BufferedImage[] particleSmoke;
     public static BufferedImage[] items;
@@ -40,6 +44,7 @@ public class Images {
     public static BufferedImage E;
     public static BufferedImage EP;
     public static BufferedImage Pause;
+    public static BufferedImage gameBeaten;
     public static BufferedImage OptionsMenu;
     public static BufferedImage heart;
     public static BufferedImage coin;
@@ -63,6 +68,10 @@ public class Images {
     public static BufferedImage[] PickleRick_back;
     public static BufferedImage[] PickleRick_left;
     public static BufferedImage[] PickleRick_right;
+    public static BufferedImage[] Rick_front;
+    public static BufferedImage[] Rick_back;
+    public static BufferedImage[] Rick_right;
+    public static BufferedImage[] Rick_left;
     public static BufferedImage[] horribleMorty_front;
     public static BufferedImage[] horribleMorty_back;
     public static BufferedImage[] horribleMorty_left;
@@ -86,6 +95,7 @@ public class Images {
         SpriteSheet FireBallUpsheet = new SpriteSheet(Images.loadImage("/Sheets/FireBallUp.png"));
         SpriteSheet FireBallDownsheet = new SpriteSheet(Images.loadImage("/Sheets/FireBallDown.png"));
         SpriteSheet PickleRicksheet = new SpriteSheet(Images.loadImage("/Sheets/PickleRick.png"));
+        SpriteSheet Ricksheet = new SpriteSheet(Images.loadImage("/Sheets/Rick.png"));
 
         blocks = new BufferedImage[32];
 
@@ -104,10 +114,20 @@ public class Images {
         SkelyEnemy_front = new BufferedImage[4];
         SkelyEnemy_back = new BufferedImage[4];
         
+        pinkSkelyEnemy_left = new BufferedImage[4];
+        pinkSkelyEnemy_right = new BufferedImage[4];
+        pinkSkelyEnemy_front = new BufferedImage[4];
+        pinkSkelyEnemy_back = new BufferedImage[4];
+        
         PickleRick_front = new BufferedImage[4];
         PickleRick_back = new BufferedImage[4];
         PickleRick_right = new BufferedImage[4];
         PickleRick_left = new BufferedImage[4];
+        
+        Rick_front = new BufferedImage[4];
+        Rick_back = new BufferedImage[4];
+        Rick_right = new BufferedImage[4];
+        Rick_left = new BufferedImage[4];
         
         horribleMorty_front = new BufferedImage[4];
         horribleMorty_back = new BufferedImage[4];
@@ -149,6 +169,7 @@ public class Images {
             E = ImageIO.read(getClass().getResourceAsStream("/Buttons/E.png"));
             EP = ImageIO.read(getClass().getResourceAsStream("/Buttons/EP.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
+            gameBeaten = ImageIO.read(getClass().getResourceAsStream("/Sheets/Game Beaten Condition.png"));
             OptionsMenu = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsMenu.png"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Resume.png"));
             Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeP.png"));
@@ -352,6 +373,27 @@ public class Images {
             SkelyEnemy_back[2]=newsheet.crop(196,227+130,width,height);
             SkelyEnemy_back[3]=newsheet.crop(228,227+130,28,height);
             
+            //Pink skely enemy anim
+            pinkSkelyEnemy_front[0]=newsheet.crop(132,131,width,height);
+            pinkSkelyEnemy_front[1]=newsheet.crop(164,131,width,height);
+            pinkSkelyEnemy_front[2]=newsheet.crop(196,131,width,height);
+            pinkSkelyEnemy_front[3]=newsheet.crop(228,131,28,height);
+
+            pinkSkelyEnemy_left[0]=newsheet.crop(132,163,width,height);
+            pinkSkelyEnemy_left[1]=newsheet.crop(164,163,width,height);
+            pinkSkelyEnemy_left[2]=newsheet.crop(196,163,width,height);
+            pinkSkelyEnemy_left[3]=newsheet.crop(228,163,28,height);
+
+            pinkSkelyEnemy_right[0]=newsheet.crop(132,195,width,height);
+            pinkSkelyEnemy_right[1]=newsheet.crop(164,195,width,height);
+            pinkSkelyEnemy_right[2]=newsheet.crop(196,195,width,height);
+            pinkSkelyEnemy_right[3]=newsheet.crop(228,195,28,height);
+
+            pinkSkelyEnemy_back[0]=newsheet.crop(132,227,width,height);
+            pinkSkelyEnemy_back[1]=newsheet.crop(164,227,width,height);
+            pinkSkelyEnemy_back[2]=newsheet.crop(196,227,width,height);
+            pinkSkelyEnemy_back[3]=newsheet.crop(228,227,28,height);
+            
             //Horrible Morty anim
             horribleMorty_front[0]=newsheet.crop(716, 92, 65, 68);
             horribleMorty_front[1]=newsheet.crop(784, 93, 65, 67);
@@ -423,6 +465,27 @@ public class Images {
             PickleRick_right[1] = PickleRicksheet.crop(154, 202, 66, 118);
             PickleRick_right[2] = PickleRicksheet.crop(283, 205, 68, 118);
             PickleRick_right[3] = PickleRicksheet.crop(412, 209, 68, 118);
+            
+            //Rick 
+            Rick_front[0] = Ricksheet.crop(0, 1, 121, 152);
+            Rick_front[1] = Ricksheet.crop(129, 0, 121, 153);
+            Rick_front[2] = Ricksheet.crop(258, 1, 121, 152);
+            Rick_front[3] = Ricksheet.crop(387, 2, 119, 151);
+
+            Rick_back[0] = Ricksheet.crop(0, 333, 122, 153);
+            Rick_back[1] = Ricksheet.crop(129, 334, 122, 151);
+            Rick_back[2] = Ricksheet.crop(258, 333, 122, 153);
+            Rick_back[3] = Ricksheet.crop(387, 332, 122, 154);
+
+            Rick_left[0] = Ricksheet.crop(16, 165, 106, 153);
+            Rick_left[1] = Ricksheet.crop(145, 164, 105, 154);
+            Rick_left[2] = Ricksheet.crop(274, 165, 106, 153);
+            Rick_left[3] = Ricksheet.crop(403, 164, 106, 154);
+            
+            Rick_right[0] = Ricksheet.crop(395, 512, 106, 153);
+            Rick_right[1] = Ricksheet.crop(267, 511, 105, 154);
+            Rick_right[2] = Ricksheet.crop(137, 512, 106, 153);
+            Rick_right[3] = Ricksheet.crop(8, 511, 106, 154);
 
 
 

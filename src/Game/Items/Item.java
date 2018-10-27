@@ -34,6 +34,7 @@ public class Item {
     public static Item magicWand = new Item(Images.magicWand, "Magic Wand", 6);
     public static Item pizzaBox = new Item(Images.pizzaBox, "Pizza", 7);
     public static Item monsterEnergy = new Item(Images.monsterEnergy, "Monster Energy", 8);
+    public static Item trophy = new Item(Images.trophy, "Trophy", 9);
     
     //class
 

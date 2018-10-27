@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import Game.Entities.EntityBase;
+import Game.Entities.Statics.Cactus;
+import Game.Entities.Statics.Cone;
 import Game.GameStates.State;
 import Game.Inventories.Inventory;
 import Game.Items.Item;
@@ -14,6 +16,8 @@ import Game.SpellCast.SpellCastUI;
 import Main.Handler;
 import Resources.Animation;
 import Resources.Images;
+import Worlds.CaveWorld;
+import Worlds.MazeWorld;
 import Worlds.World1;
 
 /**
@@ -273,6 +277,14 @@ public class Player extends CreatureBase {
             if(e.equals(this))
                 continue;
             if(e.equals(World1.getRickPickle())){
+            	continue;
+            }if(e.equals(MazeWorld.getRick())){
+            	continue;
+            }if(e.equals(CaveWorld.getHorribleMorty())  && CaveWorld.getHorribleMorty().isSummoned()){
+            	continue;
+            }if(e.equals(CaveWorld.getZombieJerry()) && CaveWorld.getZombieJerry().isSummoned()){
+            	continue;
+            }if(e instanceof Cone || e instanceof Cactus){
             	continue;
             }
             if(e.getCollisionBounds(0, 0).intersects(ar)){

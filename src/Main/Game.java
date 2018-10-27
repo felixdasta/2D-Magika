@@ -1,5 +1,6 @@
 package Main;
 
+import Game.GameStates.GameBeatenState;
 import Game.GameStates.GameState;
 import Game.GameStates.MenuState;
 import Game.GameStates.PauseState;
@@ -41,6 +42,7 @@ public class Game implements Runnable {
     public State menuState;
     public State pauseState;
     public State optionsState;
+    public State gameBeatenState;
 
     //Input
     private KeyManager keyManager;
@@ -99,6 +101,7 @@ public class Game implements Runnable {
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
         optionsState = new OptionsState(handler);
+        gameBeatenState = new GameBeatenState(handler);
 
         State.setState(menuState);
 
