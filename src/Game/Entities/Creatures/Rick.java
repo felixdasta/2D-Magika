@@ -159,7 +159,6 @@ public class Rick extends CreatureBase  {
     			
     			handler.getWorld().getEntityManager().getPlayer().setHealthBarVisibility(false);
     			g.setColor(Color.MAGENTA);
-    			g.setFont(Fonts.codeFont);
     			g.drawString("We need the following items to go to our universe: ",(int) (x-handler.getGameCamera().getxOffset()),(int) (y-handler.getGameCamera().getyOffset()-30));
     			
     			if(!trophyDelivered && Inventory.getTrophyCount() >= 1){
@@ -219,12 +218,10 @@ public class Rick extends CreatureBase  {
 
     	}else if(playerInteraction && !(MazeWorld.getSkely1().isDead() && MazeWorld.getSkely2().isDead())){
     		g.setColor(Color.MAGENTA);
-    		g.setFont(Fonts.codeFont);
     		g.drawString("Morty! Make sure you kill",(int) (x-handler.getGameCamera().getxOffset()),(int) (y-handler.getGameCamera().getyOffset()-45));
     		g.drawString("those monsters before we arrive to our universe...",(int) (x-handler.getGameCamera().getxOffset()),(int) (y-handler.getGameCamera().getyOffset()-30));
     	}else if(playerInteraction){
     		g.setColor(Color.MAGENTA);
-    		g.setFont(Fonts.codeFont);
     		g.drawString("Hooray Morty!",(int) (x-handler.getGameCamera().getxOffset()),(int) (y-handler.getGameCamera().getyOffset()-30));
     		State.setState(handler.getGame().gameBeatenState);
     	}
