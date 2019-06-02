@@ -172,32 +172,21 @@ public class Rick extends CreatureBase  {
     				trophyDelivered = true;
     			}	
 
-    			if(Inventory.getCoinCount() >= coinsLeft){
-    				if(Inventory.getCoinCount()==coinsLeft){
-        				handler.getWorld().getEntityManager().getPlayer().getInventory().getInventoryItems().remove(Item.coin);
-        				Inventory.setCointCount(0);
-    				}else{
-        				Inventory.setCointCount(Inventory.getCoinCount() - coinsLeft);
-        				Item.coin.setCount(Inventory.getCoinCount());
-    				}
-    				coinsLeft = 0;
-    			}
-    			
-    			else if(Inventory.getCoinCount() < 3){
-    					if(Inventory.getCoinCount()==2 && coinsLeft == 3){
-    						coinsLeft = 3 - 2;
-    						Inventory.setCointCount(0);
-    						handler.getWorld().getEntityManager().getPlayer().getInventory().getInventoryItems().remove(Item.coin);
-    					}else if (Inventory.getCoinCount()==1 && coinsLeft == 3){
-    						coinsLeft = 3 - 1;
-    						Inventory.setCointCount(0);
-    						handler.getWorld().getEntityManager().getPlayer().getInventory().getInventoryItems().remove(Item.coin);
-    					}else if (Inventory.getCoinCount()==1 && coinsLeft == 2){
-    						coinsLeft = 2 - 1;
-    						Inventory.setCointCount(0);
-    						handler.getWorld().getEntityManager().getPlayer().getInventory().getInventoryItems().remove(Item.coin);
-    					}
-    			}
+				if(Inventory.getCoinCount() >= coinsLeft){
+					Inventory.setCointCount(Inventory.getCoinCount() - coinsLeft);
+					Item.coin.setCount(Inventory.getCoinCount());
+					coinsLeft = 0;
+
+					if(Inventory.getCoinCount() == 0){
+						handler.getWorld().getEntityManager().getPlayer().getInventory().getInventoryItems().remove(Item.coin);
+					}
+				}
+
+				else{
+					coinsLeft -= Inventory.getCoinCount();
+					Inventory.setCointCount(0);
+					handler.getWorld().getEntityManager().getPlayer().getInventory().getInventoryItems().remove(Item.coin);
+				}
 
     			if(coinsLeft > 0){
     				g.drawImage(Images.coin, (int) (x-handler.getGameCamera().getxOffset()),(int) (y-handler.getGameCamera().getyOffset()-30), 30, 30, null);
@@ -224,6 +213,8 @@ public class Rick extends CreatureBase  {
     		g.setColor(Color.MAGENTA);
     		g.drawString("Hooray Morty!",(int) (x-handler.getGameCamera().getxOffset()),(int) (y-handler.getGameCamera().getyOffset()-30));
     		State.setState(handler.getGame().gameBeatenState);
+    		handler.getGame().stopMainAudio();
+    		handler.getGame().playMainAudioAs("res/music/Victory.wav");
     	}
     	else{
     		handler.getWorld().getEntityManager().getPlayer().setHealthBarVisibility(true);

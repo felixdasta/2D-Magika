@@ -158,47 +158,43 @@ public class Player extends CreatureBase {
 
     @Override
     public void render(Graphics g) {
-        if(FireBall){
+        if(this.getHealth() > 15){
+            g.drawImage(getCurrentAnimationFrame(animDown,animUp,animLeft,animRight,Images.player_front,Images.player_back,Images.player_left,Images.player_right), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+            animDown.setAnimation(Images.player_front);
+            animLeft.setAnimation(Images.player_left);
+            animRight.setAnimation(Images.player_right);
+            animUp.setAnimation(Images.player_back);
+        }else{
+            g.drawImage(getCurrentAnimationFrame(animDown,animUp,animLeft,animRight,Images.playerTired_front,Images.playerTired_back,Images.playerTired_left,Images.playerTired_right), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+            animDown.setAnimation(Images.playerTired_front);
+            animLeft.setAnimation(Images.playerTired_left);
+            animRight.setAnimation(Images.playerTired_right);
+            animUp.setAnimation(Images.playerTired_back);
+        }
+    	
+    	if(FireBall){
             FireBallAttack(g);
         }
-
+        
         if(healthBarVisibility){
             g.setColor(Color.BLACK);
             g.drawRect((int)(x-handler.getGameCamera().getxOffset()-1),(int)(y-handler.getGameCamera().getyOffset()-21),76,11);
             if(this.getHealth()>50){
-                g.drawImage(getCurrentAnimationFrame(animDown,animUp,animLeft,animRight,Images.player_front,Images.player_back,Images.player_left,Images.player_right), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
                 g.setColor(Color.GREEN);
                 g.fillRect((int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-20),getHealth(),10);
-                normalPlayer();
-
             }else if(this.getHealth()>=15 && getHealth()<=50){
-                g.drawImage(getCurrentAnimationFrame(animDown,animUp,animLeft,animRight,Images.player_front,Images.player_back,Images.player_left,Images.player_right), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
                 g.setColor(Color.YELLOW);
                 g.fillRect((int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-20),getHealth(),10);
-                normalPlayer();
 
             }else if(this.getHealth() < 15){
-                g.drawImage(getCurrentAnimationFrame(animDown,animUp,animLeft,animRight,Images.playerTired_front,Images.playerTired_back,Images.playerTired_left,Images.playerTired_right), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
                 g.setColor(Color.RED);
                 g.fillRect((int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-20),getHealth(),10);
-                animDown.setAnimation(Images.playerTired_front);
-                animLeft.setAnimation(Images.playerTired_left);
-                animRight.setAnimation(Images.playerTired_right);
-                animUp.setAnimation(Images.playerTired_back);
 
             }
             g.setColor(Color.white);
             g.drawString("Health: " + getHealth(),(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()-10));
         }
        }
-    
-    //this function sets the normal player sprite
-    private void normalPlayer(){
-        animDown.setAnimation(Images.player_front);
-        animLeft.setAnimation(Images.player_left);
-        animRight.setAnimation(Images.player_right);
-        animUp.setAnimation(Images.player_back);
-    }
 
     public void readyFireAttack(){
         LaunchedFireBall=true;
